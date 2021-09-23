@@ -3,6 +3,7 @@ import json
 
 # Color class for adding color to the print output
 # Idea from https://appdividend.com/2021/06/14/how-to-print-bold-python-text
+# Define the class and add constant values for each color/effect
 class color:
    PURPLE = '\033[95m'
    CYAN = '\033[96m'
@@ -15,6 +16,7 @@ class color:
    UNDERLINE = '\033[4m'
    END = '\033[0m'
 
+# Define a constant for use in separating the output for better readability
 SECTION_BREAK = '\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n'
 
 def main():
@@ -191,10 +193,11 @@ def fight():
     
 def instructions():
     print('instructions')
+    print('Flowers, pomp, and circumstance.')
     
 def intro():
     # Display game intro and instructions
-    print('Flowers, pomp, and circumstance.')
+    instructions()
     
     # Get name for the hero character
     hero_name = ""
