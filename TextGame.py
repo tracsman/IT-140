@@ -22,6 +22,17 @@ SECTION_BREAK = '\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n
 
 def main():
     # Load data files to create dictionaries
+    # Note: these dictionaries are created as global variables so that
+    #       they can be accessed by any functions called from this loop.
+    #       However, any changes to these global dictionaries in a sub
+    #       function will create a locally scoped dictionary (same name
+    #       and initial values) and are local in nature to that function.
+    #       Any changes won't be preserved when returning control to the
+    #       main loop, therefore if a called function will make changes
+    #       to the global dictionary that need to be reflected in the
+    #       main loop, the dictionary must be explicitly returned from
+    #       the sub function to the main function to preserve the changes.
+    
     # Define filename/location
     map_file = "Map.json"
     monster_file = "Monsters.json"
@@ -49,15 +60,15 @@ def main():
     # Set variables used in the game
     user_input = ""
     #hero_list = intro()
-    hero_list = ["Bubba", "Fighter"]  # TODO: Remove before production
+    hero_list = ["Bubba", "Fighter"]  # TODO: reset to intro() before production
     hero_name = hero_list[0]
     hero_class = hero_list[1]
     # hero_inventory = ["Empty"]
     hero_inventory = ["1","2","3"]    # TODO: reset to "Empty" before production
     #hero_weapon = "Fists"
-    hero_weapon = "9"                # TODO: reset to "Fists" before production
+    hero_weapon = "9"                 # TODO: reset to "Fists" before production
     # hero_life = 100
-    hero_life = 25                   # TODO: reset to "100" before production
+    hero_life = 25                    # TODO: reset to "100" before production
     current_room_index = "0"          # TODO: reset to 0 before production
     
     # Display intro message from the King
@@ -143,13 +154,13 @@ def main():
             # Note: the map dictionary is being called twice (nested) in the format statement, once to pull the index number
             #       from the requested direction of the current room to be used as the index to get the name of the intended
             #       room.
-            directions +='a {} to the North, '.format(map[map[current_room_index]['North']]['Name'])
+            directions +='a ' + map[map[current_room_index]['North']]['Name'] + ' to the ' + color.CYAN + 'North' + color.END + ', '
         if 'East' in map[current_room_index]:
-            directions +='a {} to the East, '.format(map[map[current_room_index]['East']]['Name'])
+            directions +='a ' + map[map[current_room_index]['East']]['Name'] + ' to the ' + color.CYAN + 'East' + color.END + ', '
         if 'South' in map[current_room_index]:
-            directions +='a {} to the South, '.format(map[map[current_room_index]['South']]['Name'])
+            directions +='a ' + map[map[current_room_index]['South']]['Name'] + ' to the ' + color.CYAN + 'South' + color.END + ', '
         if 'West' in map[current_room_index]:
-            directions +='a {} to the West, '.format(map[map[current_room_index]['West']]['Name'])
+            directions +='a ' + map[map[current_room_index]['West']]['Name'] + ' to the ' + color.CYAN + 'West' + color.END + ', '
         # The last direction appended will have a trailing comma and a space, so we need to trim those two characters off
         # and add a period
         directions = directions[:-2] + "."
@@ -205,10 +216,13 @@ def main():
             print(color.CYAN + color.BOLD + 'Invalid input' + color.END + ': the verb used was not recognized, please try again.\n')
 
 def move(room_index, direction):
-    print('move func({})'.format(direction))
-    print(map["0"]['Description'])
-    #print(map[room_index])
-    new_room_index = "0"
+    direction = direction.capitalize()
+    if direction not in map[room_index]:
+        new_room_index = room_index
+        print(color.CYAN + color.BOLD + 'Invalid input' + color.END + ': invalid direction entered for this room, please try again.\n')
+    else: 
+        new_room_index = map[room_index][direction]
+        print(color.GREEN + 'Success' + color.END + ': You have moved to a new location!\n')
     return new_room_index
     
 def look():
