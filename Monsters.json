@@ -1,0 +1,22 @@
+{
+    "0": {
+        "Name": "Zombie",
+        "Description" : "",
+        "Hit Points" : "30"
+    },
+    "1": {
+        "Name": "Banshee",
+        "Description" : "",
+        "Hit Points" : "50"
+    },
+    "2": {
+        "Name": "Giant Python",
+        "Description" : "",
+        "Hit Points" : "15"
+    },
+    "3": {
+        "Name": "Ogre",
+        "Description" : "",
+        "Hit Points" : "60"
+    }
+}

@@ -1,0 +1,106 @@
+{
+    "0": {
+        "Name": "Opal",
+        "Item Type": "Gem",
+        "Description" : ""
+    },    
+    "1": {
+        "Name": "Emerald",
+        "Item Type": "Gem",
+        "Description" : ""
+    },
+    "2": {
+        "Name": "Ruby",
+        "Item Type": "Gem",
+        "Description" : ""
+    },
+    "3": {
+        "Name": "Sapphire",
+        "Item Type": "Gem",
+        "Description" : ""
+    },
+    "4": {
+        "Name": "Diamond",
+        "Item Type": "Gem",
+        "Description" : ""
+    },
+    "5": {
+        "Name": "Pearl",
+        "Item Type": "Gem",
+        "Description" : ""
+    },
+    "6": {
+        "Name": "Dagger",
+        "Item Type": "Weapon",
+        "Description" : "",
+        "Multiplier": "20"
+    },
+    "7": {
+        "Name": "Club",
+        "Item Type": "Weapon",
+        "Description" : "",
+        "Multiplier": "25"
+    },
+    "8": {
+        "Name": "Bow",
+        "Item Type": "Weapon",
+        "Description" : "",
+        "Multiplier": "30"
+    },
+    "9": {
+        "Name": "Short Sword",
+        "Item Type": "Weapon",
+        "Description" : "",
+        "Multiplier": "30"
+    },
+    "10": {
+        "Name": "Lance",
+        "Item Type": "Weapon",
+        "Description" : "",
+        "Multiplier": "35"
+    },
+    "11": {
+        "Name": "Crossbow",
+        "Item Type": "Weapon",
+        "Description" : "",
+        "Multiplier": "40"
+    },
+    "12": {
+        "Name": "Leg Bone",
+        "Item Type": "Weapon",
+        "Description" : "",
+        "Multiplier": "10"
+    },
+    "13": {
+        "Name": "Potion",
+        "Item Type": "Item",
+        "Description" : "",
+        "Restore Points": "30"
+    },
+    "14": {
+        "Name": "Apple",
+        "Item Type": "Item",
+        "Description" : "",
+        "Restore Points": "5"
+    },
+    "15": {
+        "Name": "Old Shoe",
+        "Item Type": "Item",
+        "Description" : ""
+    },
+    "16": {
+        "Name": "Wooden Crate",
+        "Item Type": "Item",
+        "Description" : ""
+    },
+    "17": {
+        "Name": "Silver Shilling",
+        "Item Type": "Item",
+        "Description" : ""
+    },
+    "18": {
+        "Name": "5 Vellum Sheets",
+        "Item Type": "Item",
+        "Description" : ""
+    }
+}

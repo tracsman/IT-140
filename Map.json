@@ -1,0 +1,167 @@
+{
+    "0": {
+        "Name": "Castle",
+        "Description" : "You are in the King's grand castle.",
+        "East" : "1",
+        "Items": []
+    },
+    "1": {
+        "Name": "Statue",
+        "Description" : "You are in an area next to a statue.",
+        "North": "20",
+        "East": "2",
+        "West": "0",
+        "Items": ["6"]
+    },
+    "2": {
+        "Name": "Path",
+        "Description" : "You are in a path in an open area.",
+        "East": "4",
+        "West": "1",
+        "Items": ["7"]
+    },
+    "3": {
+        "Name": "Well",
+        "Description" : "You are in an open area and see an old water well.",
+        "North": "13",
+        "South": "4",
+        "Items": ["0"]
+    },
+    "4": {
+        "Name": "Manor",
+        "Description" : "You are standing on the lawn of a great manor.",
+        "North": "3",
+        "East": "5",
+        "West": "2",
+        "Items": ["15"]
+    },
+    "5": {
+        "Name": "Fountain",
+        "Description" : "",
+        "East": "8",
+        "West": "4",
+        "Items": ["17"]
+    },
+    "6": {
+        "Name": "Dining Room",
+        "Description" : "",
+        "East": "9",
+        "South": "7",
+        "Items": ["13"]
+    },
+    "7": {
+        "Name": "Kitchen",
+        "Description" : "You are in a dingy, dirty kitchen.",
+        "North": "6",
+        "East": "10",
+        "South": "8",
+        "Items": ["14"],
+        "Monster": "0"
+    },
+    "8": {
+        "Name": "Library",
+        "Description" : "",
+        "North": "7",
+        "East": "11",
+        "West": "5",
+        "Items": ["9"]
+    },
+    "9": {
+        "Name": "Bedroom",
+        "Description" : "",
+        "South": "10",
+        "West": "6",
+        "Items": ["1"],
+        "Monster": "1"
+    },
+    "10": {
+        "Name": "Servants Room",
+        "Description" : "",
+        "North": "9",
+        "South": "11",
+        "West": "7",
+        "Items": ["10"]
+    },
+    "11": {
+        "Name": "Great Hall",
+        "Description" : "",
+        "North": "10",
+        "West": "8",
+        "Items": ["2"]
+    },
+    "12": {
+        "Name": "Passage Way",
+        "Description" : "",
+        "East": "14",
+        "South": "13",
+        "Items": ["13"]
+    },
+    "13": {
+        "Name": "Dungeon Entrance",
+        "Description" : "",
+        "North": "12",
+        "South": "3",
+        "Items": ["12"]
+    },
+    "14": {
+        "Name": "Torture Room",
+        "Description" : "",
+        "East": "15",
+        "West": "12",
+        "Items": ["11"]
+    },
+    "15": {
+        "Name": "Treasure Room",
+        "Description" : "",
+        "East": "16",
+        "South": "14",
+        "Items": ["3"]
+    },
+    "16": {
+        "Name": "Pit of Despair",
+        "Description" : "",
+        "West": "15",
+        "Items": ["4"],
+        "Monster": "2"
+    },
+    "17": {
+        "Name": "Butcher Shop",
+        "Description" : "",
+        "East": "19",
+        "Items": ["12"]
+    },
+    "18": {
+        "Name": "Ale House",
+        "Description" : "",
+        "South": "19",
+        "Items": ["16"],
+        "Monster": "3"
+    },
+    "19": {
+        "Name": "Town Square",
+        "Description" : "",
+        "North": "18",
+        "East": "21",
+        "South": "20",
+        "West": "17",
+        "Items": ["8"]
+    },
+    "20": {
+        "Name": "Town Gate",
+        "Description" : "",
+        "North": "19",
+        "South": "1",
+        "West": "22",
+        "Items": ["18"]
+    },
+    "21": {
+        "Name": "Fish Market",
+        "Description" : "",
+        "West": "19",
+        "Items": ["5"]
+    },
+    "22": {
+        "Name": "Cliff",
+        "Items": []
+    }
+}
