@@ -4,7 +4,7 @@ import json
 # Color class for adding color to print output
 # From https://appdividend.com/2021/06/14/how-to-print-bold-python-text
 # (c) Krunal Lathiya, June 14, 2021
-# Defines the class color and adds constant values for each color/effect
+# Defines a color class and adds constant values for each color/effect
 class color:
    PURPLE = '\033[95m'
    CYAN = '\033[96m'
@@ -48,12 +48,14 @@ def main():
     # Load Monster file
     print("Loading Monster File..", end="")
     with open(monster_file, "r") as read_file:
+        global monsters
         monsters = json.load(read_file)
         print("Done")
 
     # Load Items file
     print("Loading Items File....", end="")
     with open(item_file, "r") as read_file:
+        global items
         items = json.load(read_file)
         print("Done")
     
@@ -64,7 +66,7 @@ def main():
     hero_name = hero_list[0]
     hero_class = hero_list[1]
     # hero_inventory = ["Empty"]
-    hero_inventory = ["1","2","3"]    # TODO: reset to "Empty" before production
+    hero_inventory = ["1","2","3","4","5","6","7","8","10"]    # TODO: reset to "Empty" before production
     #hero_weapon = "Fists"
     hero_weapon = "9"                 # TODO: reset to "Fists" before production
     # hero_life = 100
@@ -203,7 +205,7 @@ def main():
         elif  user_verb == 'l':
             look()
         elif  user_verb == 'g':
-            get()
+            hero_inventory = get_item(current_room_index, user_noun, hero_weapon, hero_inventory)
         elif  user_verb == 'u':
             use()
         elif  user_verb == 'd':
@@ -228,8 +230,25 @@ def move(room_index, direction):
 def look():
     print('look')
         
-def get():
-    print('get')
+def get_item(room_index, requested_item, hero_weapon, hero_inventory):
+    inventory_limit = 10
+    requested_item = requested_item.title()
+    item_found = False
+    global map
+    for item_index in map[room_index]["Items"]:
+        if items[item_index]['Name'] == requested_item:
+            item_found = True
+            if (hero_weapon == 'Fists' and len(hero_inventory) >= inventory_limit) or (hero_weapon != 'Fists' and len(hero_inventory) >= inventory_limit - 1):
+                print(color.RED + 'Inventory Full' + color.END + ': You can\'t carry any more. To get this item')
+                print('                you must first drop your weapon or another')
+                print('                inventory item to make room for it.\n')
+            else:
+                map[room_index]["Items"].remove(item_index)
+                hero_inventory.append(item_index)
+                print(color.GREEN + 'Success' + color.END + ': You have added an item to your inventory!\n')  
+    if not item_found:
+            print(color.RED + 'Invalid Object' + color.END + ': I can\'t find that item!\n')
+    return hero_inventory
     
 def use():
     print('use')
