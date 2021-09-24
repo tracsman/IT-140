@@ -29,9 +29,11 @@ def main():
     #       and initial values) and are local in nature to that function.
     #       Any changes won't be preserved when returning control to the
     #       main loop, therefore if a called function will make changes
-    #       to the global dictionary that need to be reflected in the
-    #       main loop, the dictionary must be explicitly returned from
-    #       the sub function to the main function to preserve the changes.
+    #       that need to be reflected in the main loop, that global
+    #       variable has to be declared in the called function with the
+    #       global keyword to ensure the change is affected in the global
+    #       and not the local scope.
+    #
     
     # Define filename/location
     map_file = "Map.json"
@@ -239,7 +241,7 @@ def get_item(room_index, requested_item, hero_weapon, hero_inventory):
         if items[item_index]['Name'] == requested_item:
             item_found = True
             if (hero_weapon == 'Fists' and len(hero_inventory) >= inventory_limit) or (hero_weapon != 'Fists' and len(hero_inventory) >= inventory_limit - 1):
-                print(color.RED + 'Inventory Full' + color.END + ': You can\'t carry any more. To get this item')
+                print(color.CYAN + 'Inventory Full' + color.END + ': You can\'t carry any more. To get this item')
                 print('                you must first drop your weapon or another')
                 print('                inventory item to make room for it.\n')
             else:
@@ -247,13 +249,19 @@ def get_item(room_index, requested_item, hero_weapon, hero_inventory):
                 hero_inventory.append(item_index)
                 print(color.GREEN + 'Success' + color.END + ': You have added an item to your inventory!\n')  
     if not item_found:
-            print(color.RED + 'Invalid Object' + color.END + ': I can\'t find that item!\n')
+            print(color.CYAN + 'Invalid Object' + color.END + ': I can\'t find that item!\n')
     return hero_inventory
     
 def use():
+    # If type is weapon equip, swap if needed
+    # Else If type is health, add to health to max (but not over)
+    # Anything else "I don't know how to use that"
     print('use')
     
 def drop():
+    # If weapon drop add to room inventory
+    # else if in inventory drop and add to room inventory
+    # Invalid data
     print('drop')
     
 def fight():
