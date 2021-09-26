@@ -227,7 +227,7 @@ def main():
         elif  user_verb == 'u':
             hero_inventory = use_item(current_room_index, hero_inventory, user_noun)
         elif  user_verb == 'd':
-            drop()
+            hero_inventory = drop_item(current_room_index, hero_inventory, user_noun)
         elif  user_verb == 'f':
             fight()
         elif  user_verb == 'i':
@@ -274,9 +274,11 @@ def get_item(room_index, requested_item, hero_weapon, hero_inventory):
                 print(color.CYAN + 'Inventory Full' + color.END + ': You can\'t carry any more. To get this item')
                 print('                you must first drop your weapon or another')
                 print('                inventory item to make room for it.\n')
-            else:
+            else:  
                 map[room_index]["Items"].remove(item_index)
                 hero_inventory.append(item_index)
+                if 'Empty' in hero_inventory:
+                    hero_inventory.remove('Empty')
                 print(color.GREEN + 'Success' + color.END + ': You have added an item to your inventory!\n')  
     if not item_found:
             print(color.CYAN + 'Invalid Object' + color.END + ': I can\'t find that item!\n')
@@ -292,13 +294,15 @@ def use_item(current_room_index, hero_inventory, use_item):
             use_item_found = True
     if not use_item_found:
         print(color.CYAN + 'Invalid input' + color.END + ': item does not exist, please try again.\n')
-        return
+        return hero_inventory
     # If type is weapon equip, swap if needed
     if use_item_index in hero_inventory and items[use_item_index]['Item Type'] == 'Weapon':
         global hero_weapon
         if hero_weapon == "Fists":
             hero_weapon = use_item_index
             hero_inventory.remove(use_item_index)
+            if len(hero_inventory) == 0:
+                hero_inventory.append('Empty')
             print(color.GREEN + 'Success' + color.END + ': you have equipped a new weapon!\n')
         else:
             hero_inventory.remove(use_item_index)
@@ -311,6 +315,8 @@ def use_item(current_room_index, hero_inventory, use_item):
         global hero_life
         hero_life += int(items[use_item_index]['Restore Points'])
         hero_inventory.remove(use_item_index)
+        if len(hero_inventory) == 0:
+            hero_inventory.append('Empty')
         if hero_life > hero_life_max:
             hero_life = hero_life_max
             print(color.GREEN + 'Success' + color.END + ': you feel energy and health surging in your body, your health is maxed!\n')
@@ -329,12 +335,36 @@ def use_item(current_room_index, hero_inventory, use_item):
         print(color.CYAN + 'Invalid input' + color.END + ': that item can\'t be used, please try again.\n')
     return hero_inventory
     
-def drop():
+def drop_item(current_room_index, hero_inventory, drop_item):
+    drop_item = drop_item.title()
+    drop_item_found = False
+    # Find drop_item_index
+    for item_index in items:
+        if drop_item == items[item_index]["Name"]:
+            drop_item_index = item_index
+            drop_item_found = True
+    if not drop_item_found:
+        print(color.CYAN + 'Invalid input' + color.END + ': item does not exist, please try again.\n')
+        return hero_inventory
     # If weapon drop add to room inventory
+    global hero_weapon
+    global map
+    if hero_weapon == drop_item_index:
+        hero_weapon = "Fists"
+        map[current_room_index]["Items"].append(drop_item_index)
+        print(color.GREEN + 'Success' + color.END + ': you have dropped your equipped weapon, back to bare knuckles for you!\n')
     # else if in inventory drop and add to room inventory
+    elif drop_item_index in hero_inventory:
+        hero_inventory.remove(drop_item_index)
+        if len(hero_inventory) == 0:
+            hero_inventory.append('Empty')
+        map[current_room_index]["Items"].append(drop_item_index)
+        print(color.GREEN + 'Success' + color.END + ': you have dropped an item, it feels nice not to carry around so much weight!\n')
     # Invalid data
-    print('drop')
-    
+    else:
+        print(color.CYAN + 'Invalid input' + color.END + ': you can\'t drop what you don\'t have, please try again.\n')
+    return hero_inventory
+
 def fight():
     print('fight')
     
