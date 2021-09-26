@@ -20,7 +20,6 @@ class color:
 # Define a constant for use in separating the output for better readability
 SECTION_BREAK = '\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n'
 
-# TODO: Complete Use subroutine
 # TODO: Complete Drop subroutine
 # TODO: Complete Fight subroutine
 # TODO: Complete chance for fight subroutine if monster present
@@ -78,13 +77,19 @@ def main():
     hero_list = ["Bubba", "Fighter"]  # TODO: reset to intro() before production
     hero_name = hero_list[0]
     hero_class = hero_list[1]
+    global inventory_limit
+    inventory_limit = 10
     # hero_inventory = ["Empty"]
-    hero_inventory = ["1","2","3","4","5","6","7","8","10"]    # TODO: reset to "Empty" before production
+    hero_inventory = ["1","2","3"]    # TODO: reset to "Empty" before production
+    global hero_weapon
     #hero_weapon = "Fists"
-    hero_weapon = "9"                 # TODO: reset to "Fists" before production
-    # hero_life = 100
-    hero_life = 25                    # TODO: reset to "100" before production
-    current_room_index = "0"          # TODO: reset to 0 before production
+    hero_weapon = "Fists"                 # TODO: reset to "Fists" before production
+    global hero_life_max
+    hero_life_max = 100
+    global hero_life
+    # hero_life = hero_life_max
+    hero_life = 25                    # TODO: reset to hero_life_max before production
+    current_room_index = "8"          # TODO: reset to 0 before production
     
     # Display intro message from the King
     print(SECTION_BREAK)
@@ -216,11 +221,11 @@ def main():
         if user_verb == 'm':
             current_room_index = move(current_room_index, user_noun)
         elif  user_verb == 'l':
-            look(current_room_index, hero_weapon, hero_inventory, user_noun)
+            look_item(current_room_index, hero_weapon, hero_inventory, user_noun)
         elif  user_verb == 'g':
             hero_inventory = get_item(current_room_index, user_noun, hero_weapon, hero_inventory)
         elif  user_verb == 'u':
-            use()
+            hero_inventory = use_item(current_room_index, hero_inventory, user_noun)
         elif  user_verb == 'd':
             drop()
         elif  user_verb == 'f':
@@ -240,7 +245,7 @@ def move(room_index, direction):
         print(color.GREEN + 'Success' + color.END + ': You have moved to a new location!\n')
     return new_room_index
     
-def look(current_room_index, hero_weapon, hero_inventory, look_item):
+def look_item(current_room_index, hero_weapon, hero_inventory, look_item):
     look_item = look_item.title()
     look_item_found = False
     # Find look_item_index
@@ -259,7 +264,6 @@ def look(current_room_index, hero_weapon, hero_inventory, look_item):
         print(color.CYAN + 'Invalid input' + color.END + ': item not found here, please try again.\n')
         
 def get_item(room_index, requested_item, hero_weapon, hero_inventory):
-    inventory_limit = 10
     requested_item = requested_item.title()
     item_found = False
     global map
@@ -278,11 +282,52 @@ def get_item(room_index, requested_item, hero_weapon, hero_inventory):
             print(color.CYAN + 'Invalid Object' + color.END + ': I can\'t find that item!\n')
     return hero_inventory
     
-def use():
+def use_item(current_room_index, hero_inventory, use_item):
+    use_item = use_item.title()
+    use_item_found = False
+    # Find use_item_index
+    for item_index in items:
+        if use_item == items[item_index]["Name"]:
+            use_item_index = item_index
+            use_item_found = True
+    if not use_item_found:
+        print(color.CYAN + 'Invalid input' + color.END + ': item does not exist, please try again.\n')
+        return
     # If type is weapon equip, swap if needed
+    if use_item_index in hero_inventory and items[use_item_index]['Item Type'] == 'Weapon':
+        global hero_weapon
+        if hero_weapon == "Fists":
+            hero_weapon = use_item_index
+            hero_inventory.remove(use_item_index)
+            print(color.GREEN + 'Success' + color.END + ': you have equipped a new weapon!\n')
+        else:
+            hero_inventory.remove(use_item_index)
+            hero_inventory.append(hero_weapon)
+            hero_weapon = use_item_index
+            print(color.GREEN + 'Success' + color.END + ': you have equipped a new weapon and your old one is in your inventory!\n')
     # Else If type is health, add to health to max (but not over)
+    elif use_item_index in hero_inventory and items[use_item_index]['Item Type'] == 'Health':
+        # Calc hero life + health boost
+        global hero_life
+        hero_life += int(items[use_item_index]['Restore Points'])
+        hero_inventory.remove(use_item_index)
+        if hero_life > hero_life_max:
+            hero_life = hero_life_max
+            print(color.GREEN + 'Success' + color.END + ': you feel energy and health surging in your body, your health is maxed!\n')
+        else:
+            print(color.GREEN + 'Success' + color.END + ': you feel energy and health surging in your body, your health is increased!\n')
+    # Else If type is a gem, tell the player to save it for the king
+    elif use_item_index in hero_inventory and items[use_item_index]['Item Type'] == 'Gem':
+        print(color.CYAN + 'Invalid input' + color.END + ': you can\'t use that, you\'re saving it for the King, please try again.\n')
+    # Else If type is a regular item, display an error message
+    elif use_item_index in hero_inventory and items[use_item_index]['Item Type'] == 'Item':
+        print(color.CYAN + 'Invalid input' + color.END + ': this item can\'t be used, it just looks pretty, please try again.\n')
+    elif use_item_index in map[current_room_index]["Items"]:
+        print(color.CYAN + 'Invalid input' + color.END + ': the item must be in your inventory before it can be used, please try again.\n')
     # Anything else "I don't know how to use that"
-    print('use')
+    else:
+        print(color.CYAN + 'Invalid input' + color.END + ': that item can\'t be used, please try again.\n')
+    return hero_inventory
     
 def drop():
     # If weapon drop add to room inventory

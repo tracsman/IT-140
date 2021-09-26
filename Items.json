@@ -73,13 +73,13 @@
     },
     "13": {
         "Name": "Potion",
-        "Item Type": "Item",
+        "Item Type": "Health",
         "Description" : "",
         "Restore Points": "30"
     },
     "14": {
         "Name": "Apple",
-        "Item Type": "Item",
+        "Item Type": "Health",
         "Description" : "",
         "Restore Points": "5"
     },
