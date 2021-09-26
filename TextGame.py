@@ -20,6 +20,17 @@ class color:
 # Define a constant for use in separating the output for better readability
 SECTION_BREAK = '\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n'
 
+# TODO: Complete Use subroutine
+# TODO: Complete Drop subroutine
+# TODO: Complete Fight subroutine
+# TODO: Complete chance for fight subroutine if monster present
+# TODO: Add "chance for fight" subroutine to Move, Look, Get, Drop, Use subroutines (or maybe to main loop)
+# TODO: Complete Intructions subroutine
+# TODO: Complete data descriptions for Map
+# TODO: Complete data descriptions for Items
+# TODO: Complete data descriptions for Monsters
+# TODO: UAT
+
 def main():
     # Load data files to create dictionaries
     # Note: these dictionaries are created as global variables so that
@@ -205,7 +216,7 @@ def main():
         if user_verb == 'm':
             current_room_index = move(current_room_index, user_noun)
         elif  user_verb == 'l':
-            look()
+            look(current_room_index, hero_weapon, hero_inventory, user_noun)
         elif  user_verb == 'g':
             hero_inventory = get_item(current_room_index, user_noun, hero_weapon, hero_inventory)
         elif  user_verb == 'u':
@@ -229,8 +240,23 @@ def move(room_index, direction):
         print(color.GREEN + 'Success' + color.END + ': You have moved to a new location!\n')
     return new_room_index
     
-def look():
-    print('look')
+def look(current_room_index, hero_weapon, hero_inventory, look_item):
+    look_item = look_item.title()
+    look_item_found = False
+    # Find look_item_index
+    for item_index in items:
+        if look_item == items[item_index]["Name"]:
+            look_item_index = item_index
+            look_item_found = True
+    if not look_item_found:
+        print(color.CYAN + 'Invalid input' + color.END + ': item does not exist, please try again.\n')
+        return
+    # If noun is hero weapon or item in inventory or in room items display item
+    if look_item_index in map[current_room_index]["Items"] or look_item_index == hero_weapon or look_item_index in hero_inventory:
+        print(color.GREEN + 'Success' + color.END + ': ' + items[look_item_index]['Description'] + '\n')
+    else:
+        # Else "You can't see that from here!"
+        print(color.CYAN + 'Invalid input' + color.END + ': item not found here, please try again.\n')
         
 def get_item(room_index, requested_item, hero_weapon, hero_inventory):
     inventory_limit = 10
