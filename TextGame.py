@@ -20,7 +20,6 @@ class color:
 # Define a constant for use in separating the output for better readability
 SECTION_BREAK = '\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n'
 
-# TODO: Complete Drop subroutine
 # TODO: Complete Fight subroutine
 # TODO: Complete chance for fight subroutine if monster present
 # TODO: Add "chance for fight" subroutine to Move, Look, Get, Drop, Use subroutines (or maybe to main loop)
@@ -365,7 +364,12 @@ def drop_item(current_room_index, hero_inventory, drop_item):
         print(color.CYAN + 'Invalid input' + color.END + ': you can\'t drop what you don\'t have, please try again.\n')
     return hero_inventory
 
-def fight():
+def fight(current_room_index):
+    # Get monster and hit points
+    # Roll hero attack 
+    # Roll hero damage
+    # Roll monster attack
+    # Roll monster damage
     print('fight')
     
 def instructions():
