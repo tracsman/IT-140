@@ -1,13 +1,13 @@
 {
     "0": {
         "Name": "Castle",
-        "Description" : "You are in the King's grand castle.",
+        "Description" : "You are in the King's grand castle with lots of granite\nstones, marble floors, and tapestries. So many tapestries!\nThere appears to be only one way out, it's to the East\noutside where you see a path with a large statue.",
         "East" : "1",
         "Items": []
     },
     "1": {
         "Name": "Statue",
-        "Description" : "You are in an area next to a statue.",
+        "Description" : "You are on a path in an open wooded area, next to the path\nis a statue of the King. It's kind of creepy, where ever you\nmove the eyes seem to follow you... creepy! To the North\nlooks like the gates to a town, to the East the path\ncontinues through the forest.",
         "North": "20",
         "East": "2",
         "West": "0",
@@ -15,21 +15,21 @@
     },
     "2": {
         "Name": "Path",
-        "Description" : "You are in a path in an open area.",
+        "Description" : "You are on a path in a darkly wooden area with the trees\nclosing in. You can see a path with a statue to the west\nand perhaps a house beyond the trees to the East.",
         "East": "4",
         "West": "1",
         "Items": ["7"]
     },
     "3": {
         "Name": "Well",
-        "Description" : "You are in an open area and see an old water well.",
+        "Description" : "You are in an open field with on old water well. The well\nhas a rotted rope and a broken bucket to the side of it. The\nwell doesn't appear to have been used in ages. To the South\nof the field is a large manor with many room, and to the\nNorth the field ends at mountain face with what looks like\na forboding cave.",
         "North": "13",
         "South": "4",
         "Items": ["0"]
     },
     "4": {
-        "Name": "Manor",
-        "Description" : "You are standing on the lawn of a great manor.",
+        "Name": "Manor Promenade",
+        "Description" : "You are standing on the lawn of a great manor. Down the\ngravel promenade, the manor is quite grand with a formal\nfountain court and garden leading to the main doors of the\nmanor. To the North you see a large open field, to the East\nis the fountain court and garden of the house, to the West\n a path leads into a dark forest.",
         "North": "3",
         "East": "5",
         "West": "2",
@@ -37,21 +37,21 @@
     },
     "5": {
         "Name": "Fountain",
-        "Description" : "",
+        "Description" : "Before you is a long garden leading to the country manor\nwith impeccably maintained topiary bushes in many fanciful\nshapes and gravel pathways. Your eyes are drawn to the\nimmense fountain with water spouting horses, and cherubs\npouring water from vases. Quite the bucolic scene. To the\nEast is the main entrance of the house, to the West is a\nlong promenade across the house property.",
         "East": "8",
         "West": "4",
         "Items": ["17"]
     },
     "6": {
         "Name": "Dining Room",
-        "Description" : "",
+        "Description" : "You've entered into a formal dining room (you are really\nunderdressed!). The table is set with the finest china on\ndisplay. On a sideboard in the room you see bottles of\nliquor and elixirs, I'm sure they are purely for medicinal\npurposes. To the East and South are closed doors leading\nto other rooms.",
         "East": "9",
         "South": "7",
         "Items": ["13"]
     },
     "7": {
         "Name": "Kitchen",
-        "Description" : "You are in a dingy, dirty kitchen.",
+        "Description" : "Through the door and see you are in a dingy, dirty kitchen.\nEverything seems to be in disarray with pots and pans\non the floor, garbage in the corners, plates of uneaten\nfood, and I mean come on, what is that smell?!? To the North,\nEast, and South are sets of closed doors.",
         "North": "6",
         "East": "10",
         "South": "8",
@@ -60,7 +60,7 @@
     },
     "8": {
         "Name": "Library",
-        "Description" : "",
+        "Description" : "You are standing in the Library of the manor, although\nornate and quite grand you feel a sense of dread and\ndiscomfort. The house is quiet, too quiet. The hairs\nstanding on the back of your neck tells you that something\nevil is lurking in the shadows of this house. To the North\nand East are a sets of closed doors, to the West is the\nmain door outside to the fountain court.",
         "North": "7",
         "East": "11",
         "West": "5",
@@ -68,7 +68,7 @@
     },
     "9": {
         "Name": "Bedroom",
-        "Description" : "",
+        "Description" : "This room is a bedroom, but I don't think a nap is in order,\nyou hear ghastly wailing coming from somewhere, and wait...\nis something rustling in the bed sheets? I sure hope not.\nThe only ways out of this bedroom are closed doors to the\nWest and South.",
         "South": "10",
         "West": "6",
         "Items": ["1"],
@@ -76,7 +76,7 @@
     },
     "10": {
         "Name": "Servants Room",
-        "Description" : "",
+        "Description" : "A table, two chairs, a few simple beds, this looks like the household staff's quarters. A little tight, but comfortable enough. There are doors to the North, South, and West. Take your pick!",
         "North": "9",
         "South": "11",
         "West": "7",
@@ -84,7 +84,7 @@
     },
     "11": {
         "Name": "Great Hall",
-        "Description" : "",
+        "Description" : "You have entered the Great Hall. Family crests, classic\nweapons of yore, and a vast table down the center of this\nimpressive room. With so many dour portraits of old men on\nthe walls, whoever decorated this room wasn't shy about\nbragging about the family history. The West is the doorway\nto the Library, to the North is a closed door.",
         "North": "10",
         "West": "8",
         "Items": ["2"]

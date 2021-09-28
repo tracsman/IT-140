@@ -27,6 +27,8 @@ SECTION_BREAK = '\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n
 # TODO: Complete data descriptions for Map
 # TODO: Complete data descriptions for Items
 # TODO: Complete data descriptions for Monsters
+# TODO: on the item and monster display, check for a leading vowel and switch between "a" and "an" as appropriate
+# TODO: remove the 'r' reload option from the main loop verb options
 # TODO: UAT
 
 def main():
@@ -57,7 +59,7 @@ def main():
         print("Done")
 
     # Load Monster file
-    print("Loading Monster File..", end="")
+    print("Loading Monsters File..", end="")
     with open(monster_file, "r") as read_file:
         global monsters
         monsters = json.load(read_file)
@@ -78,17 +80,17 @@ def main():
     hero_class = hero_list[1]
     global inventory_limit
     inventory_limit = 10
-    # hero_inventory = ["Empty"]
-    hero_inventory = ["1","2","3"]    # TODO: reset to "Empty" before production
+    hero_inventory = ["Empty"]
+    # hero_inventory = ["1","2","3"]    # TODO: reset to "Empty" before production
     global hero_weapon
-    #hero_weapon = "Fists"
-    hero_weapon = "Fists"                 # TODO: reset to "Fists" before production
+    hero_weapon = "Fists"
+    # hero_weapon = "Fists"                 # TODO: reset to "Fists" before production
     global hero_life_max
     hero_life_max = 100
     global hero_life
     # hero_life = hero_life_max
     hero_life = 25                    # TODO: reset to hero_life_max before production
-    current_room_index = "8"          # TODO: reset to 0 before production
+    current_room_index = "4"          # TODO: reset to 0 before production
     
     # Display intro message from the King
     print(SECTION_BREAK)
@@ -231,6 +233,25 @@ def main():
             fight()
         elif  user_verb == 'i':
             instructions()
+        elif  user_verb == 'r':
+            # Load map file
+            print("\nReloading Map File......", end="")
+            with open(map_file, "r") as read_file:
+                map = json.load(read_file)
+                print("Done")
+
+            # Load Monster file
+            print("Reloading Monsters File..", end="")
+            with open(monster_file, "r") as read_file:
+                monsters = json.load(read_file)
+                print("Done")
+
+            # Load Items file
+            print("Reloading Items File....", end="")
+            with open(item_file, "r") as read_file:
+                items = json.load(read_file)
+                print("Done")
+            print(SECTION_BREAK)
         else:
             print(color.CYAN + color.BOLD + 'Invalid input' + color.END + ': the verb used was not recognized, please try again.\n')
 
