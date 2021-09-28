@@ -1,3 +1,20 @@
+# Required Tasks
+# TODO: Update hero globals to a hero class (make sure that works the way you think it does)
+# TODO: Complete Fight subroutine
+# TODO: Add castle gem check and story ending if gems are all in hero_inventory
+# TODO: Complete Intructions subroutine
+# TODO: Complete data descriptions for Map - 0 - 11 complete (I think)
+# TODO: Complete data descriptions for Items
+# TODO: Complete data descriptions for Monsters
+# TODO: remove the 'r' reload option from the main loop verb options
+# TODO: UAT
+
+# Optional Tasks
+# TODO: on the item and monster display, check for a leading vowel and switch between "a" and "an" as appropriate
+# TODO: Complete chance for fight subroutine if monster present, cut if needed
+# TODO: Add "chance for fight" subroutine to Move, Look, Get, Drop, Use subroutines (or maybe to main loop)
+# TODO: add the Cliff you dead logic, cut if needed
+
 import random
 import json
 
@@ -19,17 +36,6 @@ class color:
 
 # Define a constant for use in separating the output for better readability
 SECTION_BREAK = '\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n'
-
-# TODO: Complete Fight subroutine
-# TODO: Complete chance for fight subroutine if monster present
-# TODO: Add "chance for fight" subroutine to Move, Look, Get, Drop, Use subroutines (or maybe to main loop)
-# TODO: Complete Intructions subroutine
-# TODO: Complete data descriptions for Map
-# TODO: Complete data descriptions for Items
-# TODO: Complete data descriptions for Monsters
-# TODO: on the item and monster display, check for a leading vowel and switch between "a" and "an" as appropriate
-# TODO: remove the 'r' reload option from the main loop verb options
-# TODO: UAT
 
 def main():
     # Load data files to create dictionaries
@@ -230,7 +236,7 @@ def main():
         elif  user_verb == 'd':
             hero_inventory = drop_item(current_room_index, hero_inventory, user_noun)
         elif  user_verb == 'f':
-            fight()
+            fight(current_room_index)
         elif  user_verb == 'i':
             instructions()
         elif  user_verb == 'r':
@@ -387,10 +393,24 @@ def drop_item(current_room_index, hero_inventory, drop_item):
 
 def fight(current_room_index):
     # Get monster and hit points
-    # Roll hero attack 
+    # Roll hero attack
+    #     1 - 20: < 5 missed, >= 5 hits, >= 10 double damage, >= 15 triple damage
+    #     1 - 12: Damage roll
+    #     Total_Damage = Damage_Roll * (1 + (Weapon_Multiplier/100)) * attack_roll_effect
+    #     e.g                  6     * (1 + (     30          /100)) *          2         = 15.6 total damage
+    #     e.g. (max)          12     * (1 + (     40          /100)) *          3         = 50.4 total damage
     # Roll hero damage
+    # Display attack results
+    # Check monster life
     # Roll monster attack
+    #    1 - 20: < 5 missed, >= 5 hits, >= 10 double damage, >= 15 triple damage
+    #    1 - 12: Damage roll
+    #    Total_Damage = Damage_Roll * (1 + (Monster_Multiplier/100)) * attack_roll_effect
+    #     e.g                  6     * (1 + (      0          /100)) *          2         = 12.0 total damage
+    #     e.g. (max)          12     * (1 + (     75          /100)) *          3         = 63.0 total damage
     # Roll monster damage
+    # Display attack results
+    # Check Hero life
     print('fight')
     
 def instructions():

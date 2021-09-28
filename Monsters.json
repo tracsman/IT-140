@@ -2,21 +2,25 @@
     "0": {
         "Name": "Zombie",
         "Description" : "",
-        "Hit Points" : "30"
+        "Hit Points" : "30",
+        "Multiplier": "20"
     },
     "1": {
         "Name": "Banshee",
         "Description" : "",
-        "Hit Points" : "50"
+        "Hit Points" : "50",
+        "Multiplier": "60"
     },
     "2": {
         "Name": "Giant Python",
         "Description" : "",
-        "Hit Points" : "15"
+        "Hit Points" : "15",
+        "Multiplier": "0"
     },
     "3": {
         "Name": "Ogre",
         "Description" : "",
-        "Hit Points" : "60"
+        "Hit Points" : "60",
+        "Multiplier": "100"
     }
 }
