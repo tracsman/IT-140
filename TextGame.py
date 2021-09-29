@@ -1,5 +1,4 @@
 # Required Tasks
-# TODO: Update hero globals to a hero class (make sure that works the way you think it does)
 # TODO: Complete Fight subroutine
 # TODO: Add castle gem check and story ending if gems are all in hero_inventory
 # TODO: Complete Intructions subroutine
@@ -7,6 +6,7 @@
 # TODO: Complete data descriptions for Items
 # TODO: Complete data descriptions for Monsters
 # TODO: remove the 'r' reload option from the main loop verb options
+# TODO: remove the 't' test option from the main loop verb options and test() function
 # TODO: UAT
 
 # Optional Tasks
@@ -33,6 +33,15 @@ class color:
    BOLD = '\033[1m'
    UNDERLINE = '\033[4m'
    END = '\033[0m'
+
+class hero:
+    name = ""
+    skill_set = ""
+    weapon = "Fists"
+    life = 75
+    life_max = 100
+    inventory = ["Empty"]
+    inventory_max = 10
 
 # Define a constant for use in separating the output for better readability
 SECTION_BREAK = '\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n'
@@ -82,25 +91,14 @@ def main():
     user_input = ""
     #hero_list = intro()
     hero_list = ["Bubba", "Fighter"]  # TODO: reset to intro() before production
-    hero_name = hero_list[0]
-    hero_class = hero_list[1]
-    global inventory_limit
-    inventory_limit = 10
-    hero_inventory = ["Empty"]
-    # hero_inventory = ["1","2","3"]    # TODO: reset to "Empty" before production
-    global hero_weapon
-    hero_weapon = "Fists"
-    # hero_weapon = "Fists"                 # TODO: reset to "Fists" before production
-    global hero_life_max
-    hero_life_max = 100
-    global hero_life
-    # hero_life = hero_life_max
-    hero_life = 25                    # TODO: reset to hero_life_max before production
+    hero.namename = hero_list[0]
+    hero.skill_set = hero_list[1]
+    #current_room_index = "0" 
     current_room_index = "4"          # TODO: reset to 0 before production
     
     # Display intro message from the King
     print(SECTION_BREAK)
-    print('Greetings {}, brave {}!!\n'.format(hero_name, hero_class))
+    print('Greetings {}, brave {}!!\n'.format(hero.name, hero.skill_set))
     print('Thank you for taking on this foolhardy.... er... I mean... uh')
     print('valiant! yes, valiant quest! My kingdom has been overrun by evil')
     print('doers and my treasury plundered. Please retreive my precious')
@@ -148,9 +146,9 @@ def main():
             print('Oh no! There is a big scary ' + color.RED + monsters[map[current_room_index]['Monster']]["Name"] + color.END + ' in here with you!!')
 
         # Show the hero's current inventory list
-        if "Empty" not in hero_inventory:
+        if "Empty" not in hero.inventory:
             inventory_items = '\nYour Inventory: '
-            for item in hero_inventory:
+            for item in hero.inventory:
                 inventory_items += color.GREEN + items[item]['Name'] + color.END + ', '
             inventory_items = inventory_items[:-2]
             print(inventory_items)
@@ -158,19 +156,19 @@ def main():
             print('\nYour Inventory: Empty')
 
         # Show the hero's current equipped weapon
-        if hero_weapon != "Fists":
-            print('Your Weapon: ' + color.GREEN + items[hero_weapon]["Name"] + color.END)
+        if hero.weapon != "Fists":
+            print('Your Weapon: ' + color.GREEN + items[hero.weapon]["Name"] + color.END)
         else:
             print('Your Weapon: Fists')
             
         # Show the hero's remaining life
-        if hero_life > 80:
+        if hero.life > 80:
             life_color = color.GREEN
-        elif hero_life > 30:
+        elif hero.life > 30:
             life_color = color.YELLOW
         else:
             life_color = color.RED + color.BOLD
-        print('Your health: ' + life_color + str(hero_life) + color.END +' out of 100\n')
+        print('Your health: ' + life_color + str(hero.life) + color.END +' out of 100\n')
         
         # Show the possible directions available from this location
         # Start with a beging of the line in a variable and add each valid direction to the string
@@ -228,13 +226,13 @@ def main():
         if user_verb == 'm':
             current_room_index = move(current_room_index, user_noun)
         elif  user_verb == 'l':
-            look_item(current_room_index, hero_weapon, hero_inventory, user_noun)
+            look_item(current_room_index, user_noun)
         elif  user_verb == 'g':
-            hero_inventory = get_item(current_room_index, user_noun, hero_weapon, hero_inventory)
+            get_item(current_room_index, user_noun)
         elif  user_verb == 'u':
-            hero_inventory = use_item(current_room_index, hero_inventory, user_noun)
+            use_item(current_room_index, user_noun)
         elif  user_verb == 'd':
-            hero_inventory = drop_item(current_room_index, hero_inventory, user_noun)
+            drop_item(current_room_index, user_noun)
         elif  user_verb == 'f':
             fight(current_room_index)
         elif  user_verb == 'i':
@@ -258,10 +256,24 @@ def main():
                 items = json.load(read_file)
                 print("Done")
             print(SECTION_BREAK)
+        elif  user_verb == 't':
+            test()
         else:
             print(color.CYAN + color.BOLD + 'Invalid input' + color.END + ': the verb used was not recognized, please try again.\n')
 
+def test():
+    hero.life = 99
+    
 def move(room_index, direction):
+    # Check for single character direction, if so, expand to full cardinal direction name
+    if direction.lower() == 'n':
+        direction = "North"
+    elif direction.lower() == 'e':
+        direction = "East"
+    elif direction.lower() == 's':
+        direction = "South"
+    elif direction.lower() == 'w':
+        direction = "West"
     direction = direction.capitalize()
     if direction not in map[room_index]:
         new_room_index = room_index
@@ -271,7 +283,7 @@ def move(room_index, direction):
         print(color.GREEN + 'Success' + color.END + ': You have moved to a new location!\n')
     return new_room_index
     
-def look_item(current_room_index, hero_weapon, hero_inventory, look_item):
+def look_item(current_room_index, look_item):
     look_item = look_item.title()
     look_item_found = False
     # Find look_item_index
@@ -283,34 +295,34 @@ def look_item(current_room_index, hero_weapon, hero_inventory, look_item):
         print(color.CYAN + 'Invalid input' + color.END + ': item does not exist, please try again.\n')
         return
     # If noun is hero weapon or item in inventory or in room items display item
-    if look_item_index in map[current_room_index]["Items"] or look_item_index == hero_weapon or look_item_index in hero_inventory:
+    if look_item_index in map[current_room_index]["Items"] or look_item_index == hero.weapon or look_item_index in hero.inventory:
         print(color.GREEN + 'Success' + color.END + ': ' + items[look_item_index]['Description'] + '\n')
     else:
         # Else "You can't see that from here!"
         print(color.CYAN + 'Invalid input' + color.END + ': item not found here, please try again.\n')
         
-def get_item(room_index, requested_item, hero_weapon, hero_inventory):
+def get_item(room_index, requested_item):
     requested_item = requested_item.title()
     item_found = False
     global map
     for item_index in map[room_index]["Items"]:
         if items[item_index]['Name'] == requested_item:
             item_found = True
-            if (hero_weapon == 'Fists' and len(hero_inventory) >= inventory_limit) or (hero_weapon != 'Fists' and len(hero_inventory) >= inventory_limit - 1):
+            if (hero.weapon == 'Fists' and len(hero.inventory) >= hero.inventory_max) or (hero.weapon != 'Fists' and len(hero.inventory) >= hero.inventory_max - 1):
                 print(color.CYAN + 'Inventory Full' + color.END + ': You can\'t carry any more. To get this item')
                 print('                you must first drop your weapon or another')
                 print('                inventory item to make room for it.\n')
             else:  
                 map[room_index]["Items"].remove(item_index)
-                hero_inventory.append(item_index)
-                if 'Empty' in hero_inventory:
-                    hero_inventory.remove('Empty')
+                hero.inventory.append(item_index)
+                if 'Empty' in hero.inventory:
+                    hero.inventory.remove('Empty')
                 print(color.GREEN + 'Success' + color.END + ': You have added an item to your inventory!\n')  
     if not item_found:
             print(color.CYAN + 'Invalid Object' + color.END + ': I can\'t find that item!\n')
-    return hero_inventory
+    return
     
-def use_item(current_room_index, hero_inventory, use_item):
+def use_item(current_room_index, use_item):
     use_item = use_item.title()
     use_item_found = False
     # Find use_item_index
@@ -320,48 +332,46 @@ def use_item(current_room_index, hero_inventory, use_item):
             use_item_found = True
     if not use_item_found:
         print(color.CYAN + 'Invalid input' + color.END + ': item does not exist, please try again.\n')
-        return hero_inventory
+        return
     # If type is weapon equip, swap if needed
-    if use_item_index in hero_inventory and items[use_item_index]['Item Type'] == 'Weapon':
-        global hero_weapon
-        if hero_weapon == "Fists":
-            hero_weapon = use_item_index
-            hero_inventory.remove(use_item_index)
-            if len(hero_inventory) == 0:
-                hero_inventory.append('Empty')
+    if use_item_index in hero.inventory and items[use_item_index]['Item Type'] == 'Weapon':
+        if hero.weapon == "Fists":
+            hero.weapon = use_item_index
+            hero.inventory.remove(use_item_index)
+            if len(hero.inventory) == 0:
+                hero.inventory.append('Empty')
             print(color.GREEN + 'Success' + color.END + ': you have equipped a new weapon!\n')
         else:
-            hero_inventory.remove(use_item_index)
-            hero_inventory.append(hero_weapon)
-            hero_weapon = use_item_index
+            hero.inventory.remove(use_item_index)
+            hero.inventory.append(hero.weapon)
+            hero.weapon = use_item_index
             print(color.GREEN + 'Success' + color.END + ': you have equipped a new weapon and your old one is in your inventory!\n')
     # Else If type is health, add to health to max (but not over)
-    elif use_item_index in hero_inventory and items[use_item_index]['Item Type'] == 'Health':
+    elif use_item_index in hero.inventory and items[use_item_index]['Item Type'] == 'Health':
         # Calc hero life + health boost
-        global hero_life
-        hero_life += int(items[use_item_index]['Restore Points'])
-        hero_inventory.remove(use_item_index)
-        if len(hero_inventory) == 0:
-            hero_inventory.append('Empty')
-        if hero_life > hero_life_max:
-            hero_life = hero_life_max
+        hero.life += int(items[use_item_index]['Restore Points'])
+        hero.inventory.remove(use_item_index)
+        if len(hero.inventory) == 0:
+            hero.inventory.append('Empty')
+        if hero.life > hero.life_max:
+            hero.life = hero.life_max
             print(color.GREEN + 'Success' + color.END + ': you feel energy and health surging in your body, your health is maxed!\n')
         else:
             print(color.GREEN + 'Success' + color.END + ': you feel energy and health surging in your body, your health is increased!\n')
     # Else If type is a gem, tell the player to save it for the king
-    elif use_item_index in hero_inventory and items[use_item_index]['Item Type'] == 'Gem':
+    elif use_item_index in hero.inventory and items[use_item_index]['Item Type'] == 'Gem':
         print(color.CYAN + 'Invalid input' + color.END + ': you can\'t use that, you\'re saving it for the King, please try again.\n')
     # Else If type is a regular item, display an error message
-    elif use_item_index in hero_inventory and items[use_item_index]['Item Type'] == 'Item':
+    elif use_item_index in hero.inventory and items[use_item_index]['Item Type'] == 'Item':
         print(color.CYAN + 'Invalid input' + color.END + ': this item can\'t be used, it just looks pretty, please try again.\n')
     elif use_item_index in map[current_room_index]["Items"]:
         print(color.CYAN + 'Invalid input' + color.END + ': the item must be in your inventory before it can be used, please try again.\n')
     # Anything else "I don't know how to use that"
     else:
         print(color.CYAN + 'Invalid input' + color.END + ': that item can\'t be used, please try again.\n')
-    return hero_inventory
+    return
     
-def drop_item(current_room_index, hero_inventory, drop_item):
+def drop_item(current_room_index, drop_item):
     drop_item = drop_item.title()
     drop_item_found = False
     # Find drop_item_index
@@ -371,25 +381,24 @@ def drop_item(current_room_index, hero_inventory, drop_item):
             drop_item_found = True
     if not drop_item_found:
         print(color.CYAN + 'Invalid input' + color.END + ': item does not exist, please try again.\n')
-        return hero_inventory
+        return
     # If weapon drop add to room inventory
-    global hero_weapon
     global map
-    if hero_weapon == drop_item_index:
-        hero_weapon = "Fists"
+    if hero.weapon == drop_item_index:
+        hero.weapon = "Fists"
         map[current_room_index]["Items"].append(drop_item_index)
         print(color.GREEN + 'Success' + color.END + ': you have dropped your equipped weapon, back to bare knuckles for you!\n')
     # else if in inventory drop and add to room inventory
-    elif drop_item_index in hero_inventory:
-        hero_inventory.remove(drop_item_index)
-        if len(hero_inventory) == 0:
-            hero_inventory.append('Empty')
+    elif drop_item_index in hero.inventory:
+        hero.inventory.remove(drop_item_index)
+        if len(hero.inventory) == 0:
+            hero.inventory.append('Empty')
         map[current_room_index]["Items"].append(drop_item_index)
         print(color.GREEN + 'Success' + color.END + ': you have dropped an item, it feels nice not to carry around so much weight!\n')
     # Invalid data
     else:
         print(color.CYAN + 'Invalid input' + color.END + ': you can\'t drop what you don\'t have, please try again.\n')
-    return hero_inventory
+    return
 
 def fight(current_room_index):
     # Get monster and hit points
