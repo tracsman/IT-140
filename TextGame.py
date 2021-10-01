@@ -1,10 +1,10 @@
 # Required Tasks
-# TODO: Complete Fight subroutine
 # TODO: Add castle gem check and story ending if gems are all in hero_inventory
 # TODO: Complete Intructions subroutine
 # TODO: Complete data descriptions for Map - 0 - 11 complete (I think)
 # TODO: Complete data descriptions for Items
 # TODO: Complete data descriptions for Monsters
+# TODO: Complete Fight subroutine
 # TODO: remove the 'r' reload option from the main loop verb options
 # TODO: remove the 't' test option from the main loop verb options and test() function
 # TODO: UAT
