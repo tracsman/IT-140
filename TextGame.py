@@ -1,5 +1,4 @@
 # Required Tasks
-# TODO: Add castle gem check and story ending if gems are all in hero_inventory
 # TODO: Complete Intructions subroutine
 # TODO: Complete data descriptions for Map - 0 - 11 complete (I think)
 # TODO: Complete data descriptions for Items
@@ -13,7 +12,6 @@
 # TODO: on the item and monster display, check for a leading vowel and switch between "a" and "an" as appropriate
 # TODO: Complete chance for fight subroutine if monster present, cut if needed
 # TODO: Add "chance for fight" subroutine to Move, Look, Get, Drop, Use subroutines (or maybe to main loop)
-# TODO: add the Cliff you dead logic, cut if needed
 
 import random
 import json
@@ -40,7 +38,7 @@ class hero:
     weapon = "Fists"
     life = 75
     life_max = 100
-    inventory = ["Empty"]
+    inventory = ["8", "9", "0", "1", "2", "3", "4", "5", "6", "7"]
     inventory_max = 10
 
 # Define a constant for use in separating the output for better readability
@@ -91,10 +89,11 @@ def main():
     user_input = ""
     #hero_list = intro()
     hero_list = ["Bubba", "Fighter"]  # TODO: reset to intro() before production
-    hero.namename = hero_list[0]
+    hero.name = hero_list[0]
     hero.skill_set = hero_list[1]
     #current_room_index = "0" 
-    current_room_index = "4"          # TODO: reset to 0 before production
+    current_room_index = "1"          # TODO: reset to 0 before production
+    winning = ["0", "1", "2", "3", "4", "5"]
     
     # Display intro message from the King
     print(SECTION_BREAK)
@@ -112,9 +111,22 @@ def main():
     # the main loop based on completion of the game or at the request
     # of the user.
     while True:
+        
+        # There are two "immediate effect" locations
+        # so at the begining of this loop we need to check if we
+        # meet either of those conditions and act accordingly
+        # Immediate Condition 1: Hero is at the castle with all the gems (i.e. player wins!)
+        if current_room_index == "0" and all(things in hero.inventory for things in winning):
+            hero_wins()
+            return
+        # Immediate Condition 2: Hero just walked off a cliff and died
+        elif current_room_index == "22":
+            hero_cliff()
+            return
+        
         # The main purpose of this loop is to display the standard
-        # output screen information and accept and handoff the user
-        # command. The display output is aligned thusly:
+        # output screen of information and accept and route the
+        # user command. The display output is aligned thusly:
         # 
         # Current location description
         # (optional) Any items in the room
@@ -168,7 +180,7 @@ def main():
             life_color = color.YELLOW
         else:
             life_color = color.RED + color.BOLD
-        print('Your health: ' + life_color + str(hero.life) + color.END +' out of 100\n')
+        print('Your health: ' + life_color + str(hero.life) + color.END +' out of ' + str(hero.life_max) +'\n')
         
         # Show the possible directions available from this location
         # Start with a beging of the line in a variable and add each valid direction to the string
@@ -177,7 +189,7 @@ def main():
         if 'North' in map[current_room_index]:
             # If this direction exists, append this direction, nicely formated with an ending comma to the directions string
             # Note: the map dictionary is being called twice (nested) in the format statement, once to pull the index number
-            #       from the requested direction of the current room to be used as the index to get the name of the intended
+            #       from the requested direction of the current room which is used as the index to get the name of the intended
             #       room.
             directions +='a ' + map[map[current_room_index]['North']]['Name'] + ' to the ' + color.CYAN + 'North' + color.END + ', '
         if 'East' in map[current_room_index]:
@@ -222,21 +234,29 @@ def main():
         user_verb = user_input.split(" ",maxsplit=1)[0][0].lower()
         user_noun = user_input.split(" ",maxsplit=1)[1].lower()
         
-        # Based on the verb, decide which subfunction to call
+        # Based on the verb, decide which action function to call
+        # User wants to move
         if user_verb == 'm':
             current_room_index = move(current_room_index, user_noun)
+        # User wants to look at an item
         elif  user_verb == 'l':
             look_item(current_room_index, user_noun)
+        # User wants to get an item
         elif  user_verb == 'g':
             get_item(current_room_index, user_noun)
+        # User wants to use an item
         elif  user_verb == 'u':
             use_item(current_room_index, user_noun)
+        # User wants to drop an item
         elif  user_verb == 'd':
             drop_item(current_room_index, user_noun)
+        # User wants to fight a monster
         elif  user_verb == 'f':
             fight(current_room_index)
+        # Users wants to read the game instructions
         elif  user_verb == 'i':
             instructions()
+        # Test function: Developer wants to reload the data files
         elif  user_verb == 'r':
             # Load map file
             print("\nReloading Map File......", end="")
@@ -256,8 +276,10 @@ def main():
                 items = json.load(read_file)
                 print("Done")
             print(SECTION_BREAK)
+        # Test function: Developer has a stub function to test a bit of temp/trial code
         elif  user_verb == 't':
             test()
+        # if we've gotten this far, the verb letter wasn't recognized
         else:
             print(color.CYAN + color.BOLD + 'Invalid input' + color.END + ': the verb used was not recognized, please try again.\n')
 
@@ -453,9 +475,25 @@ def intro():
         good_input = True
     return hero_name, hero_class
 
+def hero_wins():
+    print('You\'ve entered the castle with all the gems and the king is\ndelighted to see you! He calls his court into the main\nthrone room and exclaims in his loudest kingly-est voice,\n')
+    print('"Oh brave hero, you have returned from your periless\njourney and I see you have returned my precious gems. I am\nso thankful that I dub you knight ' + hero.name + ', protector of the')
+    print('realm and most high ' + hero.skill_set +'. You will hence forth be known\nas such to all people in my lands. I also bequeath to you\nthe diamond that you have returned a token of my gratitude."\n')
+    print('The crowd erupts in applause as the king rises and walks out\nof the room with all the gems save the shining diamond which he\ntosses to you. With diamond in hand, you head out of the castle')
+    print('doors and into the sunshine to start on your next big adventure!\n')
+    
+
+def hero_cliff():
+    print('You have just walked off the edge of an epic cliff, why\nwould you walk off a cliff? Unfortunately this was a fall\nfrom such a great height that you did not survive it. Your')
+    print('adventure has ended in failure. Any songs about your life\nwill be more of a cautionary tale about a ' + hero.skill_set + ' named\n' + hero.name + ' that couldn\'t fly, so sad.\n')
+
+def hero_lost(monster_index):
+    print('Bad monster {} made you die'.format(monsters[monster_index]["Name"]))
+
+
 # End of Functions, script starts here
 main()
 
-print("All Done")
+print("Thank you for playing, we hope you enjoyed this adventure!\n\n")
 
 
