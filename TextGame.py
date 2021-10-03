@@ -1,11 +1,11 @@
 # Required Tasks
-# TODO: Complete Intructions subroutine
 # TODO: Complete data descriptions for Map - 0 - 11 complete (I think)
 # TODO: Complete data descriptions for Items
 # TODO: Complete data descriptions for Monsters
 # TODO: Complete Fight subroutine
 # TODO: remove the 'r' reload option from the main loop verb options
 # TODO: remove the 't' test option from the main loop verb options and test() function
+# TODO: Review all text, and instructions for completeness
 # TODO: UAT
 
 # Optional Tasks
@@ -13,8 +13,12 @@
 # TODO: Complete chance for fight subroutine if monster present, cut if needed
 # TODO: Add "chance for fight" subroutine to Move, Look, Get, Drop, Use subroutines (or maybe to main loop)
 
-import random
+# Import JSON module to work with the json data files
 import json
+# Import OS module to access the Get_Terminal_Size function for console line count
+import os
+# Import Random module for use in the fight function random number generation
+import random
 
 # Color class for adding color to print output
 # From https://appdividend.com/2021/06/14/how-to-print-bold-python-text
@@ -224,15 +228,20 @@ def main():
         # Display a content break
         print(SECTION_BREAK)
                 
-        # Check to ensure user_input has at least two parts separated by a space
+        # Check for a verb-only command, if not then check user_input has at least two parts separated by a space
         if user_input.find(" ") < 1:
-            print(color.CYAN + color.BOLD + 'Invalid input' + color.END + ': you must enter your command with a verb, a space, and a noun e.g. "move north"\n')
-            continue
-        # The input has a space, break the input into the first word as the verb, and second part as the noun
-        # maxsplit is used to ensure if the noun is two word, only the first word is split.
-        # on the verb an extra [0] is used to only pull the first character of the verb.
-        user_verb = user_input.split(" ",maxsplit=1)[0][0].lower()
-        user_noun = user_input.split(" ",maxsplit=1)[1].lower()
+            if user_input.lower()[0] in ["i", "t", "r"]:
+                user_verb = user_input.split(" ",maxsplit=1)[0][0].lower()
+                user_noun = "none"
+            else:
+                print(color.CYAN + color.BOLD + 'Invalid input' + color.END + ': you must enter your command with a verb, a space, and a noun e.g. "move north"\n')
+                continue
+        else:
+            # The input has a space, break the input into the first word as the verb, and second part as the noun
+            # maxsplit is used to ensure if the noun is two word, only the first word is split.
+            # on the verb an extra [0] is used to only pull the first character of the verb.
+            user_verb = user_input.split(" ",maxsplit=1)[0][0].lower()
+            user_noun = user_input.split(" ",maxsplit=1)[1].lower()
         
         # Based on the verb, decide which action function to call
         # User wants to move
@@ -284,7 +293,7 @@ def main():
             print(color.CYAN + color.BOLD + 'Invalid input' + color.END + ': the verb used was not recognized, please try again.\n')
 
 def test():
-    hero.life = 99
+    print(__file__)
     
 def move(room_index, direction):
     # Check for single character direction, if so, expand to full cardinal direction name
@@ -445,9 +454,110 @@ def fight(current_room_index):
     print('fight')
     
 def instructions():
-    print('instructions')
-    print('Flowers, pomp, and circumstance.')
+    # Get number of lines of the console
+    console_lines = os.get_terminal_size()[1]
+    i = 1
+    message = []
+    message.append("Instructions for this Text Based Adventure!")
+    message.append("")
+    message.append("Goal: Collect six gems hidden around the 23 locations in the")
+    message.append("      game, then return to the Castle.")
+    message.append("")
+    message.append("Basic Commands:")
+    message.append("  Generally you need to enter a verb and noun to control the hero.")
+    message.append("  The verbs are:")
+    message.append("  Move  - to move between locations in the world")
+    message.append("  Look  - to get more information about an item you see or have")
+    message.append("  Get   - to add an item you see to your inventory")
+    message.append("  Use   - to consume food or a potion to restore health or to equip")
+    message.append("          a weapon in your inventory for use in battle")
+    message.append("  Drop  - to drop an item in your inventory, it will appear in the")
+    message.append("          the list of items you see in that location")
+    message.append("  Fight - used to engage a monster in battle")
+    message.append("  Instructions - use this to print these instructions")
+    message.append("  Quit  - use to exit the game, WARNING: you will lose all progress")
+    message.append("          made in this session")
+    message.append("")
+    message.append("Each of the above verbs may be abbreviated to a single character")
+    message.append("e.g. Instead of the whole word \"Move\", you can simple use \"m\"")
+    message.append("(the exception is \"Quit\", that must always be typed fully)")
+    message.append("")
+    message.append("The verb is followed by a noun, the noun is the object or direction")
+    message.append("you wish to act upon.")
+    message.append("")
+    message.append("Examples:")
+    message.append("  Move - 'Move North' or 'm north' or 'm n'")
+    message.append("         (directions are the only nouns you may abbreviate)")
+    message.append("  Look - 'Look Dagger' or 'l dagger'")
+    message.append("  Get - 'Get Dagger' or 'g dagger'")
+    message.append("  Use (weapon) - 'Use Dagger' or ' u dagger'")
+    message.append("  Use (food) - 'Use Apple' or 'u apple'")
+    message.append("  Drop - 'Drop Dagger' or 'd dagger'")
+    message.append("  Fight - 'Fight Zombie' or 'f zombie'")
+    message.append("  Instructions - 'instructions' or 'i'")
+    message.append("  Quit - 'Quit' (can not be abbreviated)")
+    message.append("")
+    message.append("Noun restrictions:")
+    message.append("  - the object you wish to interact with must be in the room")
+    message.append("    to 'look' or 'get'.")
+    message.append("  - the object you wish to interact with must be in your")
+    message.append("    inventory to 'look', 'get', 'use', or 'drop'")
+    message.append("")
+    message.append("Inventory restrictions:")
+    message.append("  You hero is limited to carry only 10 items, this includes")
+    message.append("  a weapon. This means if you have a weapon equipped you can")
+    message.append("  only carry nine items.")
+    message.append("")
+    message.append("Monster information:")
+    message.append("  You will encounter Monsters on your journey through the")
+    message.append("  world. When present in a location with a Monster a warning")
+    message.append("  will pop up informing you of the Monster type. You may take")
+    message.append("  other actions while in the room with the Monster such as")
+    message.append("  'get', 'look', 'use', or 'move'. Any action (verb) other than")
+    message.append("  'Fight' will result in a chance that the Monster will attack")
+    message.append("  you. If the Monster successfully attacks, you will automatically")
+    message.append("  enter the fight phase of the game. While fighting you will")
+    message.append("  see the hero health and Monster health after each round of")
+    message.append("  attacks. You can choose to run ('Move') at any time (although")
+    message.append("  that choice does give the monster a chance to attack before")
+    message.append("  you leave!). You can continue fighting until either the hero")
+    message.append("  or the monster is dead (when life is zero)")
+    # message.append("")
+    # message.append("")
+    # message.append("")
+    # message.append("")
+    # message.append("")
+    # message.append("")
+    # message.append("")
+    # message.append("")
+    # message.append("")
+    # message.append("")
+    # message.append("")
+    # message.append("")
+    # message.append("")
+    # message.append("")
+    # message.append("")
+    # message.append("")
+    # message.append("")
+    # message.append("")
+    # print('(Verbs: Move, Look, Get, Use, Drop, Fight, or Instructions)')    
     
+    print()
+    for line in message:
+        print(line)
+        i += 1
+        if i >= console_lines - 3:
+            response = input("\nPress ENTER to continue (or Q, ENTER to return to the game)...") or "continue"
+            print()
+            if response.lower()[0] == 'q':
+                print(SECTION_BREAK)
+                return
+            else:
+                print("\n\n")
+                i = 1
+    response = input("\nEnd of instructions\nPress ENTER to continue...")
+    print(SECTION_BREAK)
+
 def intro():
     # Display game intro and instructions
     instructions()
