@@ -1,12 +1,10 @@
 '''Jon Ormond'''
 # Required Tasks
-# TODO: Complete Fight subroutine
-# TODO: remove the 'r' reload option from the main loop verb options
-# TODO: remove the 't' test option from the main loop verb options and test() function
 # TODO: Review all text, and instructions for completeness
 # TODO: UAT
 
 # Optional Tasks
+# TODO: in fight(), check for a single hit point of damage make print statement "point" instead of "points" for hero and monster damage
 # TODO: on the item and monster display, check for a leading vowel and switch between "a" and "an" as appropriate
 # TODO: Complete chance for fight subroutine if monster present, cut if needed
 # TODO: Add "chance for fight" subroutine to Move, Look, Get, Drop, Use subroutines (or maybe to main loop)
@@ -22,21 +20,23 @@ def main():
     '''main()'''
     # Set variables used in the game
     user_input = ""
-    current_room = "Castle"
+    current_room = "Library" # TODO: Change back to "Castle" before Prod
     winning = ["Opal", "Emerald", "Ruby", "Sapphire", "Diamond", "Pearl"]
     
     # Display game open text and get hero name and skill set
-    intro()
-            
+    # TODO: un-remark intro() line before Prod
+    # intro() 
+    
     # Start main game loop
     # Although set up as an infinite loop, there are exit points within
     # the main loop based on completion of the game or at the request
     # of the user.
     while True:
         
-        # There are two "immediate effect" locations
-        # so at the begining of this loop we need to check if we
-        # meet either of those conditions and act accordingly
+        # There are a few "immediate effect" conditions so
+        # at the begining of this loop we need to check if
+        # we meet any of those conditions and act accordingly.
+
         # Immediate Condition 1: Hero is at the castle with all the gems (i.e. player wins!)
         if current_room == "Castle" and all(things in hero.inventory for things in winning):
             hero_wins()
@@ -44,6 +44,9 @@ def main():
         # Immediate Condition 2: Hero just walked off a cliff and died
         elif current_room == "Cliff":
             hero_cliff()
+            return
+        elif hero.life <= 0:
+            print('You were warned this was a dangerous adventure, and while\nyou were not successful in your quest you were brave and\nvaliant. Bards will sing epic songs of your legendary tail.\n')
             return
         
         # The main purpose of this loop is to display the standard
@@ -105,7 +108,7 @@ def main():
         print('Your health: ' + life_color + str(hero.life) + color.END +' out of ' + str(hero.life_max) +'\n')
         
         # Show the possible directions available from this location
-        # Start with a beging of the line in a variable and add each valid direction to the string
+        # Start with a begining of the line in a variable and add each valid direction to the string
         directions = "Possible Directions: you see "
         # Check each the map dictionary for the current room and see if the cardinal direction exists
         if 'North' in atlas[current_room]:
@@ -176,27 +179,14 @@ def main():
             drop_item(current_room, user_noun)
         # User wants to fight a monster
         elif  user_verb == 'f':
-            fight(current_room)
+            fight(current_room, user_noun)
         # Users wants to read the game instructions
         elif  user_verb == 'i':
             instructions()
-        # Test function: Developer wants to reload the data files
-        elif  user_verb == 'r':
-            # map = load_file(map_file)
-            # monsters = load_file(monster_file) 
-            # items = load_file(item_file)
-            print(SECTION_BREAK)
-        # Test function: Developer has a stub function to test a bit of temp/trial code
-        elif  user_verb == 't':
-            test()
         # if we've gotten this far, the verb letter wasn't recognized
         else:
             print(color.CYAN + color.BOLD + 'Invalid input' + color.END + ': the verb used was not recognized, please try again.\n')
-
-def test():
-    '''test()'''
-    print(__file__)
-    
+   
 def move(current_room, direction):
     '''move(current_room, direction)'''
     # Check for single character direction, if so, expand to full cardinal direction name
@@ -299,9 +289,8 @@ def drop_item(current_room, item_to_drop):
     item_to_drop = item_to_drop.title()
     if item_to_drop not in items:
         print(color.CYAN + 'Invalid input' + color.END + ': item does not exist, please try again.\n')
-        return
     # If weapon drop add to room inventory
-    if hero.weapon == item_to_drop:
+    elif hero.weapon == item_to_drop:
         hero.weapon = "Fists"
         atlas[current_room]["Items"].append(item_to_drop)
         print(color.GREEN + 'Success' + color.END + ': you have dropped your equipped weapon, back to bare knuckles for you!\n')
@@ -316,29 +305,73 @@ def drop_item(current_room, item_to_drop):
     else:
         print(color.CYAN + 'Invalid input' + color.END + ': you can\'t drop what you don\'t have, please try again.\n')
 
-def fight(current_room):
+def fight(current_room, monster):
     '''fight(current_room)'''
-    # Get monster and hit points
-    # Roll hero attack
-    #     1 - 20: < 5 missed, >= 5 hits, >= 10 double damage, >= 15 triple damage
-    #     1 - 12: Damage roll
+    monster = monster.title()
+    if monster not in atlas[current_room]["Monster"]:
+        print(color.CYAN + 'Invalid input' + color.END + ': no such monster here for you to fight\n')
+        return
+
+    # Battle Logic (for both hero and Monster)
+    # Roll for initiative, roll damage, calculate total with weapon multiplier
+    #     Attack Roll is 1 - 20: This provided an Attack Role effect based on the Attack Roll with < 5 missed, >= 5 hits, >= 10 double damage, >= 15 triple damage
+    #     Damage roll is 1 - 12
     #     Total_Damage = Damage_Roll * (1 + (Weapon_Multiplier/100)) * attack_roll_effect
+    #
+    #     e.g. (min)           5     * (1 + (     10          /100)) *          0         =  0.0 total damage
     #     e.g                  6     * (1 + (     30          /100)) *          2         = 15.6 total damage
     #     e.g. (max)          12     * (1 + (     40          /100)) *          3         = 50.4 total damage
-    # Roll hero damage
-    # Display attack results
-    # Check monster life
-    # Roll monster attack
-    #    1 - 20: < 5 missed, >= 5 hits, >= 10 double damage, >= 15 triple damage
-    #    1 - 12: Damage roll
-    #    Total_Damage = Damage_Roll * (1 + (Monster_Multiplier/100)) * attack_roll_effect
-    #     e.g                  6     * (1 + (      0          /100)) *          2         = 12.0 total damage
-    #     e.g. (max)          12     * (1 + (     75          /100)) *          3         = 63.0 total damage
-    # Roll monster damage
-    # Display attack results
-    # Check Hero life
-    print('fight')
+    #
     
+    # Start battle
+    # Hero Attack Phase
+    hero_attack_roll = random.randint(1, 21)
+    if hero_attack_roll >= 15:
+        hero_attack_roll_effect = 3
+    elif hero_attack_roll >= 10:
+        hero_attack_roll_effect = 2
+    elif hero_attack_roll >= 5:
+        hero_attack_roll_effect = 1
+    else:
+        hero_attack_roll_effect = 0
+    hero_damage_roll = random.randint(1, 13)
+    hero_damage_multiplier = int(items[hero.weapon]["Multiplier"]) if hero.weapon != "Fists" else 0
+    hero_damage = int(hero_damage_roll * (1 + (hero_damage_multiplier/100)) * hero_attack_roll_effect)
+    # Display attack results
+    if hero_attack_roll < 5:
+        print(color.RED + 'Hero Attack Failed' + color.END + ': you tried really hard, but you completely missed the monster!\n')
+    else:
+        print(color.GREEN + 'Hero Attack successful' + color.END + f': you have landed a powerful blow of {hero_damage} damage points.\n')
+    # Check monster life
+    monsters[monster]["Life"] -= hero_damage
+    if monsters[monster]["Life"] <= 0:
+        print(color.GREEN + 'You win!' + color.END + ': you triumphed over this terrible monster. You truly are a hero!\n')
+        atlas[current_room].pop("Monster")
+        return
+
+    # Monster Attack Phase
+    monster_attack_roll = random.randint(1, 21)
+    if monster_attack_roll >= 15:
+        monster_attack_roll_effect = 3
+    elif monster_attack_roll >= 10:
+        monster_attack_roll_effect = 2
+    elif monster_attack_roll >= 5:
+        monster_attack_roll_effect = 1
+    else:
+        monster_attack_roll_effect = 0
+    monster_damage_roll = random.randint(1, 13)
+    monster_damage_multiplier = int(monsters[monster]["Multiplier"])
+    monster_damage = int(monster_damage_roll * (1 + (monster_damage_multiplier/100)) * monster_attack_roll_effect)
+    # Display attack results
+    if monster_attack_roll < 5:
+        print(color.GREEN + f'{monster} Attack Failed' + color.END + ': the monster attacked ferociously but you danced\n                      out of the way and the monster completely missed!\n')
+    else:
+        print(color.RED + f'{monster} Attack successful' + color.END + f': the {monster} has landed a powerful blow of {monster_damage} damage points.\n')
+    # Check Hero life
+    hero.life -= monster_damage
+    if hero.life <= 0:
+        print(color.RED + 'Mortal Blow!' + color.END + f': the evil {monster} as landed a mortal blow!\n')
+
 def instructions():
     '''instructions()'''
     # Get number of lines of the console
@@ -484,10 +517,6 @@ def hero_cliff():
     print('You have just walked off the edge of an epic cliff, why\nwould you walk off a cliff? Unfortunately this was a fall\nfrom such a great height that you did not survive it. Your')
     print('adventure has ended in failure. Any songs about your life\nwill be more of a cautionary tale about a ' + hero.skill_set + ' named\n' + hero.name + ' that couldn\'t fly, so sad.\n')
 
-def hero_lost(monster):
-    '''hero_lost(monster)'''
-    print(f'Bad monster {monster} made you die')
-
 def load_file(file):
     '''load_file'''
     print("Loading ", file, "File.....", end="")
@@ -497,12 +526,12 @@ def load_file(file):
     return dictionary
 
 # End of Functions, script starts here
-# Color class for adding color to print output
-# From https://appdividend.com/2021/06/14/how-to-print-bold-python-text
-# (c) Krunal Lathiya, June 14, 2021
-# Defines a color class and adds constant values for each color/effect
+
 class color: # pylint: disable=too-few-public-methods
-    '''Def'''
+    '''class color: Defines a color class and adds constant values for each color/effect'''
+    # Color class for adding color to print output
+    # From https://appdividend.com/2021/06/14/how-to-print-bold-python-text
+    # (c) Krunal Lathiya, June 14, 2021
     PURPLE = '\033[95m'
     CYAN = '\033[96m'
     DARKCYAN = '\033[36m'
@@ -515,22 +544,22 @@ class color: # pylint: disable=too-few-public-methods
     END = '\033[0m'
 
 class hero: # pylint: disable=too-few-public-methods
-    '''Def'''
+    '''class hero: hold main attribute values for the games hero'''
     name = ""
     skill_set = ""
     weapon = "Fists"
     life = 75
     life_max = 100
-    inventory = ["Empty"]
+    inventory = ["Short Sword"] # TODO: change to "Empty" before Prod
     inventory_max = 10
 
 # Define a constant for use in separating the output for better readability
 SECTION_BREAK = '\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n'
 
 # Define filename/location and load dictionary variables from data files
-map_file = "Map.json"
+map_file     = "Map.json"
 monster_file = "Monsters.json"
-item_file = "Items.json"
+item_file    = "Items.json"
 atlas = dict(load_file(map_file))
 monsters = dict(load_file(monster_file))
 items = dict(load_file(item_file))
