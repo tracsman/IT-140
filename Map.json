@@ -1,167 +1,144 @@
 {
-    "0": {
-        "Name": "Castle",
+    "Castle": {
         "Description" : "You are in the King's grand castle with lots of granite\nstones, marble floors, and tapestries. So many tapestries!\nThere appears to be only one way out, it's to the East\noutside where you see a path with a large statue.",
-        "East" : "1",
+        "East" : "Statue",
         "Items": []
     },
-    "1": {
-        "Name": "Statue",
+    "Statue": {
         "Description" : "You are on a path in an open wooded area, next to the path\nis a statue of the King. It's kind of creepy, where ever you\nmove the eyes seem to follow you... creepy! To the North\nlooks like the gates to a town, to the East the path\ncontinues through the forest.",
-        "North": "20",
-        "East": "2",
-        "West": "0",
-        "Items": ["6"]
+        "North": "Town Gate",
+        "East": "Path",
+        "West": "Castle",
+        "Items": ["Dagger"]
     },
-    "2": {
-        "Name": "Path",
+    "Path": {
         "Description" : "You are on a path in a darkly wooden area with the trees\nclosing in. You can see a path with a statue to the west\nand perhaps a house beyond the trees to the East.",
-        "East": "4",
-        "West": "1",
-        "Items": ["7"]
+        "East": "Manor Promenade",
+        "West": "Statue",
+        "Items": ["Club"]
     },
-    "3": {
-        "Name": "Well",
+    "Well": {
         "Description" : "You are in an open field with on old water well. The well\nhas a rotted rope and a broken bucket to the side of it. The\nwell doesn't appear to have been used in ages. To the South\nof the field is a large manor with many room, and to the\nNorth the field ends at mountain face with what looks like\na forboding cave.",
-        "North": "13",
-        "South": "4",
-        "Items": ["0"]
+        "North": "Dungeon Entrance",
+        "South": "Manor Promenade",
+        "Items": ["Opal"]
     },
-    "4": {
-        "Name": "Manor Promenade",
+    "Manor Promenade": {
         "Description" : "You are standing on the lawn of a great manor. Down the\ngravel promenade, the manor is quite grand with a formal\nfountain court and garden leading to the main doors of the\nmanor. To the North you see a large open field, to the East\nis the fountain court and garden of the house, to the West\n a path leads into a dark forest.",
-        "North": "3",
-        "East": "5",
-        "West": "2",
-        "Items": ["15"]
+        "North": "Well",
+        "East": "Fountain",
+        "West": "Path",
+        "Items": ["Old Shoe"]
     },
-    "5": {
-        "Name": "Fountain",
+    "Fountain": {
         "Description" : "Before you is a long garden leading to the country manor\nwith impeccably maintained topiary bushes in many fanciful\nshapes and gravel pathways. Your eyes are drawn to the\nimmense fountain with water spouting horses, and cherubs\npouring water from vases. Quite the bucolic scene. To the\nEast is the main entrance of the house, to the West is a\nlong promenade across the house property.",
-        "East": "8",
-        "West": "4",
-        "Items": ["17"]
+        "East": "Library",
+        "West": "Manor Promenade",
+        "Items": ["Silver Shilling"]
     },
-    "6": {
-        "Name": "Dining Room",
+    "Dining Room": {
         "Description" : "You've entered into a formal dining room (you are really\nunderdressed!). The table is set with the finest china on\ndisplay. On a sideboard in the room you see bottles of\nliquor and elixirs, I'm sure they are purely for medicinal\npurposes. To the East and South are closed doors leading\nto other rooms.",
-        "East": "9",
-        "South": "7",
-        "Items": ["13"]
+        "East": "Bedroom",
+        "South": "Kitchen",
+        "Items": ["Potion"]
     },
-    "7": {
-        "Name": "Kitchen",
+    "Kitchen": {
         "Description" : "Through the door and see you are in a dingy, dirty kitchen.\nEverything seems to be in disarray with pots and pans\non the floor, garbage in the corners, plates of uneaten\nfood, and I mean come on, what is that smell?!? To the North,\nEast, and South are sets of closed doors.",
-        "North": "6",
-        "East": "10",
-        "South": "8",
-        "Items": ["14"],
-        "Monster": "0"
+        "North": "Dining Room",
+        "East": "Servants Room",
+        "South": "Library",
+        "Items": ["Apple"],
+        "Monster": "Zombie"
     },
-    "8": {
-        "Name": "Library",
+    "Library": {
         "Description" : "You are standing in the Library of the manor, although\nornate and quite grand you feel a sense of dread and\ndiscomfort. The house is quiet, too quiet. The hairs\nstanding on the back of your neck tells you that something\nevil is lurking in the shadows of this house. To the North\nand East are a sets of closed doors, to the West is the\nmain door outside to the fountain court.",
-        "North": "7",
-        "East": "11",
-        "West": "5",
-        "Items": ["9"]
+        "North": "Kitchen",
+        "East": "Great Hall",
+        "West": "Fountain",
+        "Items": ["Short Sword"]
     },
-    "9": {
-        "Name": "Bedroom",
+    "Bedroom": {
         "Description" : "This room is a bedroom, but I don't think a nap is in order,\nyou hear ghastly wailing coming from somewhere, and wait...\nis something rustling in the bed sheets? I sure hope not.\nThe only ways out of this bedroom are closed doors to the\nWest and South.",
-        "South": "10",
-        "West": "6",
-        "Items": ["1"],
-        "Monster": "1"
+        "South": "Servants Room",
+        "West": "Fountain",
+        "Items": ["Emerald"],
+        "Monster": "Banshee"
     },
-    "10": {
-        "Name": "Servants Room",
-        "Description" : "A table, two chairs, a few simple beds, this looks like the household staff's quarters. A little tight, but comfortable enough. There are doors to the North, South, and West. Take your pick!",
-        "North": "9",
-        "South": "11",
-        "West": "7",
-        "Items": ["10"]
+    "Servants Room": {
+        "Description" : "A table, two chairs, a few simple beds, this looks like the\nhousehold staff's quarters. A little tight, but comfortable\nenough. There are doors to the North, South, and West.\nTake your pick!",
+        "North": "Bedroom",
+        "South": "Great Hall",
+        "West": "Kitchen",
+        "Items": ["Lance"]
     },
-    "11": {
-        "Name": "Great Hall",
+    "Great Hall": {
         "Description" : "You have entered the Great Hall. Family crests, classic\nweapons of yore, and a vast table down the center of this\nimpressive room. With so many dour portraits of old men on\nthe walls, whoever decorated this room wasn't shy about\nbragging about the family history. The West is the doorway\nto the Library, to the North is a closed door.",
-        "North": "10",
-        "West": "8",
-        "Items": ["2"]
+        "North": "Servants Room",
+        "West": "Library",
+        "Items": ["Ruby"]
     },
-    "12": {
-        "Name": "Passage Way",
-        "Description" : "",
-        "East": "14",
-        "South": "13",
-        "Items": ["13"]
+    "Passage Way": {
+        "Description" : "Damp hewn rock surrounds you in along a narrow corridor.\nBits of detritus and refuse where the walls meet the floor.\nThe subtle wafting odor of long standing mildew. Best to\njust keep moving! To the East is deepening darkness, to the\nSouth the dim hope of daylight.",
+        "East": "Torture Room",
+        "South": "Dungeon Entrance",
+        "Items": ["Potion"]
     },
-    "13": {
-        "Name": "Dungeon Entrance",
-        "Description" : "",
-        "North": "12",
-        "South": "3",
-        "Items": ["12"]
+    "Dungeon Entrance": {
+        "Description" : "At the edge of a clearing, a cliff stands about the height\nof a tall tree. Next to a large boulder appears to be an\nentrance to a cave or.. no wait, not a cave but a dungeon!\nContinue North to enter the dungeon, South to an open\nfield with a Well.",
+        "North": "Passage Way",
+        "South": "Well",
+        "Items": ["Leg Bone"]
     },
-    "14": {
-        "Name": "Torture Room",
-        "Description" : "",
-        "East": "15",
-        "West": "12",
-        "Items": ["11"]
+    "Torture Room": {
+        "Description" : "A sense of dread and terror fill your senses, the hair on\nthe back your neck stands as if in a lightning storm. Very\nbad things have happened in this room. There are various\nimplements of torture laying about the room and some really\ndisgusting stains on the floor. To the East is a door with\nbright metal fittings, to the West only darkness.",
+        "East": "Treasure Room",
+        "West": "Passage Way",
+        "Items": ["Crossbow"]
     },
-    "15": {
-        "Name": "Treasure Room",
-        "Description" : "",
-        "East": "16",
-        "South": "14",
-        "Items": ["3"]
+    "Treasure Room": {
+        "Description" : "You enter a room that, unlike the other rooms in this\nterrible place, is relatively clean and well appointed. No\nmore rough walls and floor, although dusty you see fine\nwooden tables and polished stone walls. In the center of the\nroom stands a small plinth. To the East is a door, but\nsomething isn't right about it, you really don't want to\nopen that door. You can also return to the torture room to\nthe West.",
+        "East": "Pit of Despair",
+        "South": "Torture Room",
+        "Items": ["Sapphire"]
     },
-    "16": {
-        "Name": "Pit of Despair",
-        "Description" : "",
-        "West": "15",
-        "Items": ["4"],
-        "Monster": "2"
+    "Pit of Despair": {
+        "Description" : "You enter a room dominated by a torture rack, but with the\naddition of vacuum pumps a water driven wheel and other\ninconceivable contraptions, it appears far worse than a\nnormal rack. A lot of life has been lost in this room. Is\nthere a slithering sound? I don't like this place. Go West\nas soon as possible, it's your only way out of here!",
+        "West": "Treasure Room",
+        "Items": ["Diamond"],
+        "Monster": "Giant Python"
     },
-    "17": {
-        "Name": "Butcher Shop",
-        "Description" : "",
-        "East": "19",
-        "Items": ["12"]
+    "Butcher Shop": {
+        "Description" : "Scraps of fetid meat are scattered around the shop, facing\nthis stench you're really wishing someone would invent\nrefrigeration right about now, this place is nasty! There's\nreally nothing for you here, you can head back East to the\ntown square.",
+        "East": "Town Square",
+        "Items": ["Leg Bone"]
     },
-    "18": {
-        "Name": "Ale House",
-        "Description" : "",
-        "South": "19",
-        "Items": ["16"],
-        "Monster": "3"
+    "Ale House": {
+        "Description" : "Mmmmm beer, ooh or maybe mead, so many choices! But it looks\nlike someone (or something) has been here before you. You\nsee smashed kegs, tables, chairs. Not sure if there much\nleft in here to imbibe. The only way out appears to be South\nback to the town square.",
+        "South": "Town Square",
+        "Items": ["Wooden Crate"],
+        "Monster": "Ogre"
     },
-    "19": {
-        "Name": "Town Square",
-        "Description" : "",
-        "North": "18",
-        "East": "21",
-        "South": "20",
-        "West": "17",
-        "Items": ["8"]
+    "Town Square": {
+        "Description" : "You find yourself in the town square, you see interesting\nshops and establishments all around you, but where are the\npeople? It's awfully quiet, perhaps too quiet? To the West\nappears to be a Butcher Shop, to the North an Ale House, to\nthe East a Fish Market, or you can leave the town through\nthe gates to the South.",
+        "North": "Ale House",
+        "East": "Fish Market",
+        "South": "Town Gate",
+        "West": "Butcher Shop",
+        "Items": ["Bow"]
     },
-    "20": {
-        "Name": "Town Gate",
-        "Description" : "",
-        "North": "19",
-        "South": "1",
-        "West": "22",
-        "Items": ["18"]
+    "Town Gate": {
+        "Description" : "Before you stands a large archway filled with two metal\nbanded wooden gates. An entrance to a town! Will you go\nNorth and enter the town or proceed South to the path\nwith a Statue?",
+        "North": "Town Square",
+        "South": "Statue",
+        "West": "Cliff",
+        "Items": ["5 Vellum Sheets"]
     },
-    "21": {
-        "Name": "Fish Market",
-        "Description" : "",
-        "West": "19",
-        "Items": ["5"]
+    "Fish Market": {
+        "Description" : "What is that smell?! Oh, it is a fish market so I guess it\ngoes with the territory. But this seems worse than normal,\nI don't think this is today's catch, or even this week's\ncatch! But there could be something use full here, maybe...\nor not. Head West to get back to the town square.",
+        "West": "Town Square",
+        "Items": ["Pearl"]
     },
-    "22": {
-        "Name": "Cliff",
+    "Cliff": {
         "Items": []
     }
 }

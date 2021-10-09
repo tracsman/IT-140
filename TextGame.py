@@ -1,7 +1,5 @@
+'''Jon Ormond'''
 # Required Tasks
-# TODO: Complete data descriptions for Map - 0 - 11 complete (I think)
-# TODO: Complete data descriptions for Items
-# TODO: Complete data descriptions for Monsters
 # TODO: Complete Fight subroutine
 # TODO: remove the 'r' reload option from the main loop verb options
 # TODO: remove the 't' test option from the main loop verb options and test() function
@@ -20,95 +18,15 @@ import os
 # Import Random module for use in the fight function random number generation
 import random
 
-# Color class for adding color to print output
-# From https://appdividend.com/2021/06/14/how-to-print-bold-python-text
-# (c) Krunal Lathiya, June 14, 2021
-# Defines a color class and adds constant values for each color/effect
-class color:
-   PURPLE = '\033[95m'
-   CYAN = '\033[96m'
-   DARKCYAN = '\033[36m'
-   BLUE = '\033[94m'
-   GREEN = '\033[92m'
-   YELLOW = '\033[93m'
-   RED = '\033[91m'
-   BOLD = '\033[1m'
-   UNDERLINE = '\033[4m'
-   END = '\033[0m'
-
-class hero:
-    name = ""
-    skill_set = ""
-    weapon = "Fists"
-    life = 75
-    life_max = 100
-    inventory = ["8", "9", "0", "1", "2", "3", "4", "5", "6", "7"]
-    inventory_max = 10
-
-# Define a constant for use in separating the output for better readability
-SECTION_BREAK = '\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n'
-
 def main():
-    # Load data files to create dictionaries
-    # Note: these dictionaries are created as global variables so that
-    #       they can be accessed by any functions called from this loop.
-    #       However, any changes to these global dictionaries in a sub
-    #       function will create a locally scoped dictionary (same name
-    #       and initial values) and are local in nature to that function.
-    #       Any changes won't be preserved when returning control to the
-    #       main loop, therefore if a called function will make changes
-    #       that need to be reflected in the main loop, that global
-    #       variable has to be declared in the called function with the
-    #       global keyword to ensure the change is affected in the global
-    #       and not the local scope.
-    #
-    
-    # Define filename/location
-    map_file = "Map.json"
-    monster_file = "Monsters.json"
-    item_file = "Items.json"
-    
-    # Load map file
-    print("\nLoading Map File......", end="")
-    with open(map_file, "r") as read_file:
-        global map
-        map = json.load(read_file)
-        print("Done")
-
-    # Load Monster file
-    print("Loading Monsters File..", end="")
-    with open(monster_file, "r") as read_file:
-        global monsters
-        monsters = json.load(read_file)
-        print("Done")
-
-    # Load Items file
-    print("Loading Items File....", end="")
-    with open(item_file, "r") as read_file:
-        global items
-        items = json.load(read_file)
-        print("Done")
-    
+    '''main()'''
     # Set variables used in the game
     user_input = ""
-    #hero_list = intro()
-    hero_list = ["Bubba", "Fighter"]  # TODO: reset to intro() before production
-    hero.name = hero_list[0]
-    hero.skill_set = hero_list[1]
-    #current_room_index = "0" 
-    current_room_index = "1"          # TODO: reset to 0 before production
-    winning = ["0", "1", "2", "3", "4", "5"]
+    current_room = "Castle"
+    winning = ["Opal", "Emerald", "Ruby", "Sapphire", "Diamond", "Pearl"]
     
-    # Display intro message from the King
-    print(SECTION_BREAK)
-    print('Greetings {}, brave {}!!\n'.format(hero.name, hero.skill_set))
-    print('Thank you for taking on this foolhardy.... er... I mean... uh')
-    print('valiant! yes, valiant quest! My kingdom has been overrun by evil')
-    print('doers and my treasury plundered. Please retreive my precious')
-    print('gemstones. There are six in all. When you have collected them,')
-    print('please return to me here in the castle.\n')
-    print('Best of luck!')
-    print(SECTION_BREAK)
+    # Display game open text and get hero name and skill set
+    intro()
             
     # Start main game loop
     # Although set up as an infinite loop, there are exit points within
@@ -120,11 +38,11 @@ def main():
         # so at the begining of this loop we need to check if we
         # meet either of those conditions and act accordingly
         # Immediate Condition 1: Hero is at the castle with all the gems (i.e. player wins!)
-        if current_room_index == "0" and all(things in hero.inventory for things in winning):
+        if current_room == "Castle" and all(things in hero.inventory for things in winning):
             hero_wins()
             return
         # Immediate Condition 2: Hero just walked off a cliff and died
-        elif current_room_index == "22":
+        elif current_room == "Cliff":
             hero_cliff()
             return
         
@@ -147,25 +65,25 @@ def main():
         #
 
         # Show the description of the current room from the map dictionary
-        print(map[current_room_index]['Description'])
+        print(atlas[current_room]['Description'])
 
         # Show any items
-        if len(map[current_room_index]['Items']) > 0:
+        if len(atlas[current_room]['Items']) > 0:
             display_items = 'You see a '
-            for item in map[current_room_index]['Items']:
-                display_items += color.GREEN + items[item]['Name'] + color.END + ', '
+            for item in atlas[current_room]['Items']:
+                display_items += color.GREEN + item + color.END + ', '
             display_items = display_items[:-2] + ' there for the taking.'
             print(display_items)
 
         # Show any monsters
-        if 'Monster' in map[current_room_index]:
-            print('Oh no! There is a big scary ' + color.RED + monsters[map[current_room_index]['Monster']]["Name"] + color.END + ' in here with you!!')
+        if 'Monster' in atlas[current_room]:
+            print('Oh no! There is a big scary ' + color.RED + atlas[current_room]['Monster'] + color.END + ' in here with you!!')
 
         # Show the hero's current inventory list
         if "Empty" not in hero.inventory:
             inventory_items = '\nYour Inventory: '
             for item in hero.inventory:
-                inventory_items += color.GREEN + items[item]['Name'] + color.END + ', '
+                inventory_items += color.GREEN + item + color.END + ', '
             inventory_items = inventory_items[:-2]
             print(inventory_items)
         else:
@@ -173,7 +91,7 @@ def main():
 
         # Show the hero's current equipped weapon
         if hero.weapon != "Fists":
-            print('Your Weapon: ' + color.GREEN + items[hero.weapon]["Name"] + color.END)
+            print('Your Weapon: ' + color.GREEN + hero.weapon + color.END)
         else:
             print('Your Weapon: Fists')
             
@@ -189,19 +107,16 @@ def main():
         # Show the possible directions available from this location
         # Start with a beging of the line in a variable and add each valid direction to the string
         directions = "Possible Directions: you see "
-        # Check each the map dictionary for the current room index and see if the cardinal direction exists
-        if 'North' in map[current_room_index]:
+        # Check each the map dictionary for the current room and see if the cardinal direction exists
+        if 'North' in atlas[current_room]:
             # If this direction exists, append this direction, nicely formated with an ending comma to the directions string
-            # Note: the map dictionary is being called twice (nested) in the format statement, once to pull the index number
-            #       from the requested direction of the current room which is used as the index to get the name of the intended
-            #       room.
-            directions +='a ' + map[map[current_room_index]['North']]['Name'] + ' to the ' + color.CYAN + 'North' + color.END + ', '
-        if 'East' in map[current_room_index]:
-            directions +='a ' + map[map[current_room_index]['East']]['Name'] + ' to the ' + color.CYAN + 'East' + color.END + ', '
-        if 'South' in map[current_room_index]:
-            directions +='a ' + map[map[current_room_index]['South']]['Name'] + ' to the ' + color.CYAN + 'South' + color.END + ', '
-        if 'West' in map[current_room_index]:
-            directions +='a ' + map[map[current_room_index]['West']]['Name'] + ' to the ' + color.CYAN + 'West' + color.END + ', '
+            directions +='a ' + atlas[current_room]['North'] + ' to the ' + color.CYAN + 'North' + color.END + ', '
+        if 'East' in atlas[current_room]:
+            directions +='a ' + atlas[current_room]['East'] + ' to the ' + color.CYAN + 'East' + color.END + ', '
+        if 'South' in atlas[current_room]:
+            directions +='a ' + atlas[current_room]['South'] + ' to the ' + color.CYAN + 'South' + color.END + ', '
+        if 'West' in atlas[current_room]:
+            directions +='a ' + atlas[current_room]['West'] + ' to the ' + color.CYAN + 'West' + color.END + ', '
         # The last direction appended will have a trailing comma and a space, so we need to trim those two characters off
         # and add a period
         directions = directions[:-2] + "."
@@ -246,44 +161,30 @@ def main():
         # Based on the verb, decide which action function to call
         # User wants to move
         if user_verb == 'm':
-            current_room_index = move(current_room_index, user_noun)
+            current_room = move(current_room, user_noun)
         # User wants to look at an item
         elif  user_verb == 'l':
-            look_item(current_room_index, user_noun)
+            look_item(current_room, user_noun)
         # User wants to get an item
         elif  user_verb == 'g':
-            get_item(current_room_index, user_noun)
+            get_item(current_room, user_noun)
         # User wants to use an item
         elif  user_verb == 'u':
-            use_item(current_room_index, user_noun)
+            use_item(current_room, user_noun)
         # User wants to drop an item
         elif  user_verb == 'd':
-            drop_item(current_room_index, user_noun)
+            drop_item(current_room, user_noun)
         # User wants to fight a monster
         elif  user_verb == 'f':
-            fight(current_room_index)
+            fight(current_room)
         # Users wants to read the game instructions
         elif  user_verb == 'i':
             instructions()
         # Test function: Developer wants to reload the data files
         elif  user_verb == 'r':
-            # Load map file
-            print("\nReloading Map File......", end="")
-            with open(map_file, "r") as read_file:
-                map = json.load(read_file)
-                print("Done")
-
-            # Load Monster file
-            print("Reloading Monsters File..", end="")
-            with open(monster_file, "r") as read_file:
-                monsters = json.load(read_file)
-                print("Done")
-
-            # Load Items file
-            print("Reloading Items File....", end="")
-            with open(item_file, "r") as read_file:
-                items = json.load(read_file)
-                print("Done")
+            # map = load_file(map_file)
+            # monsters = load_file(monster_file) 
+            # items = load_file(item_file)
             print(SECTION_BREAK)
         # Test function: Developer has a stub function to test a bit of temp/trial code
         elif  user_verb == 't':
@@ -293,9 +194,11 @@ def main():
             print(color.CYAN + color.BOLD + 'Invalid input' + color.END + ': the verb used was not recognized, please try again.\n')
 
 def test():
+    '''test()'''
     print(__file__)
     
-def move(room_index, direction):
+def move(current_room, direction):
+    '''move(current_room, direction)'''
     # Check for single character direction, if so, expand to full cardinal direction name
     if direction.lower() == 'n':
         direction = "North"
@@ -306,82 +209,71 @@ def move(room_index, direction):
     elif direction.lower() == 'w':
         direction = "West"
     direction = direction.capitalize()
-    if direction not in map[room_index]:
-        new_room_index = room_index
+    if direction not in atlas[current_room]:
+        new_room = current_room
         print(color.CYAN + color.BOLD + 'Invalid input' + color.END + ': invalid direction entered for this room, please try again.\n')
     else: 
-        new_room_index = map[room_index][direction]
+        new_room = atlas[current_room][direction]
         print(color.GREEN + 'Success' + color.END + ': You have moved to a new location!\n')
-    return new_room_index
+    return new_room
     
-def look_item(current_room_index, look_item):
-    look_item = look_item.title()
-    look_item_found = False
-    # Find look_item_index
-    for item_index in items:
-        if look_item == items[item_index]["Name"]:
-            look_item_index = item_index
-            look_item_found = True
-    if not look_item_found:
+def look_item(current_room, item_to_see):
+    '''look_item(current_room, look_item)'''
+    item_to_see = item_to_see.title()
+    if item_to_see not in items:
         print(color.CYAN + 'Invalid input' + color.END + ': item does not exist, please try again.\n')
         return
     # If noun is hero weapon or item in inventory or in room items display item
-    if look_item_index in map[current_room_index]["Items"] or look_item_index == hero.weapon or look_item_index in hero.inventory:
-        print(color.GREEN + 'Success' + color.END + ': ' + items[look_item_index]['Description'] + '\n')
+    if item_to_see in atlas[current_room]["Items"] or item_to_see == hero.weapon or item_to_see in hero.inventory:
+        print(color.GREEN + 'Success' + color.END + ': ' + items[item_to_see]['Description'] + '\n')
     else:
         # Else "You can't see that from here!"
         print(color.CYAN + 'Invalid input' + color.END + ': item not found here, please try again.\n')
         
-def get_item(room_index, requested_item):
+def get_item(current_room, requested_item):
+    '''get_item(current_room, requested_item)'''
     requested_item = requested_item.title()
     item_found = False
-    global map
-    for item_index in map[room_index]["Items"]:
-        if items[item_index]['Name'] == requested_item:
+    for item in atlas[current_room]["Items"]:
+        if item == requested_item:
             item_found = True
             if (hero.weapon == 'Fists' and len(hero.inventory) >= hero.inventory_max) or (hero.weapon != 'Fists' and len(hero.inventory) >= hero.inventory_max - 1):
                 print(color.CYAN + 'Inventory Full' + color.END + ': You can\'t carry any more. To get this item')
                 print('                you must first drop your weapon or another')
                 print('                inventory item to make room for it.\n')
-            else:  
-                map[room_index]["Items"].remove(item_index)
-                hero.inventory.append(item_index)
+            else:
+                atlas[current_room]["Items"].remove(item)
+                hero.inventory.append(item)
                 if 'Empty' in hero.inventory:
                     hero.inventory.remove('Empty')
-                print(color.GREEN + 'Success' + color.END + ': You have added an item to your inventory!\n')  
+                print(color.GREEN + 'Success' + color.END + ': You have added an item to your inventory!\n')
+
     if not item_found:
-            print(color.CYAN + 'Invalid Object' + color.END + ': I can\'t find that item!\n')
-    return
+        print(color.CYAN + 'Invalid Object' + color.END + ': I can\'t find that item!\n')
     
-def use_item(current_room_index, use_item):
-    use_item = use_item.title()
-    use_item_found = False
-    # Find use_item_index
-    for item_index in items:
-        if use_item == items[item_index]["Name"]:
-            use_item_index = item_index
-            use_item_found = True
-    if not use_item_found:
+def use_item(current_room, item_to_use):
+    '''use_item(current_room, use_item)'''
+    item_to_use = item_to_use.title()
+    if item_to_use not in items:
         print(color.CYAN + 'Invalid input' + color.END + ': item does not exist, please try again.\n')
         return
     # If type is weapon equip, swap if needed
-    if use_item_index in hero.inventory and items[use_item_index]['Item Type'] == 'Weapon':
-        if hero.weapon == "Fists":
-            hero.weapon = use_item_index
-            hero.inventory.remove(use_item_index)
-            if len(hero.inventory) == 0:
-                hero.inventory.append('Empty')
-            print(color.GREEN + 'Success' + color.END + ': you have equipped a new weapon!\n')
-        else:
-            hero.inventory.remove(use_item_index)
-            hero.inventory.append(hero.weapon)
-            hero.weapon = use_item_index
-            print(color.GREEN + 'Success' + color.END + ': you have equipped a new weapon and your old one is in your inventory!\n')
+    if item_to_use in hero.inventory and items[item_to_use]['Item Type'] == 'Weapon' and hero.weapon == "Fists":
+        hero.weapon = item_to_use
+        hero.inventory.remove(item_to_use)
+        if len(hero.inventory) == 0:
+            hero.inventory.append('Empty')
+        print(color.GREEN + 'Success' + color.END + ': you have equipped a new weapon!\n')
+    elif item_to_use in hero.inventory and items[item_to_use]['Item Type'] == 'Weapon':
+        hero.inventory.remove(item_to_use)
+        hero.inventory.append(hero.weapon)
+        hero.weapon = item_to_use
+        print(color.GREEN + 'Success' + color.END + ': you have equipped a new weapon and your old one is in your inventory!\n')
     # Else If type is health, add to health to max (but not over)
-    elif use_item_index in hero.inventory and items[use_item_index]['Item Type'] == 'Health':
+    elif item_to_use in hero.inventory and items[item_to_use]['Item Type'] == 'Health':
         # Calc hero life + health boost
-        hero.life += int(items[use_item_index]['Restore Points'])
-        hero.inventory.remove(use_item_index)
+        hero.life += int(items[item_to_use]['Restore Points'])
+        hero.inventory.remove(item_to_use)
         if len(hero.inventory) == 0:
             hero.inventory.append('Empty')
         if hero.life > hero.life_max:
@@ -390,48 +282,42 @@ def use_item(current_room_index, use_item):
         else:
             print(color.GREEN + 'Success' + color.END + ': you feel energy and health surging in your body, your health is increased!\n')
     # Else If type is a gem, tell the player to save it for the king
-    elif use_item_index in hero.inventory and items[use_item_index]['Item Type'] == 'Gem':
+    elif item_to_use in hero.inventory and items[item_to_use]['Item Type'] == 'Gem':
         print(color.CYAN + 'Invalid input' + color.END + ': you can\'t use that, you\'re saving it for the King, please try again.\n')
     # Else If type is a regular item, display an error message
-    elif use_item_index in hero.inventory and items[use_item_index]['Item Type'] == 'Item':
+    elif item_to_use in hero.inventory and items[item_to_use]['Item Type'] == 'Item':
         print(color.CYAN + 'Invalid input' + color.END + ': this item can\'t be used, it just looks pretty, please try again.\n')
-    elif use_item_index in map[current_room_index]["Items"]:
+    elif item_to_use in atlas[current_room]["Items"]:
         print(color.CYAN + 'Invalid input' + color.END + ': the item must be in your inventory before it can be used, please try again.\n')
     # Anything else "I don't know how to use that"
     else:
         print(color.CYAN + 'Invalid input' + color.END + ': that item can\'t be used, please try again.\n')
     return
     
-def drop_item(current_room_index, drop_item):
-    drop_item = drop_item.title()
-    drop_item_found = False
-    # Find drop_item_index
-    for item_index in items:
-        if drop_item == items[item_index]["Name"]:
-            drop_item_index = item_index
-            drop_item_found = True
-    if not drop_item_found:
+def drop_item(current_room, item_to_drop):
+    '''drop_item(current_room, drop_item)'''
+    item_to_drop = item_to_drop.title()
+    if item_to_drop not in items:
         print(color.CYAN + 'Invalid input' + color.END + ': item does not exist, please try again.\n')
         return
     # If weapon drop add to room inventory
-    global map
-    if hero.weapon == drop_item_index:
+    if hero.weapon == item_to_drop:
         hero.weapon = "Fists"
-        map[current_room_index]["Items"].append(drop_item_index)
+        atlas[current_room]["Items"].append(item_to_drop)
         print(color.GREEN + 'Success' + color.END + ': you have dropped your equipped weapon, back to bare knuckles for you!\n')
     # else if in inventory drop and add to room inventory
-    elif drop_item_index in hero.inventory:
-        hero.inventory.remove(drop_item_index)
+    elif item_to_drop in hero.inventory:
+        hero.inventory.remove(item_to_drop)
         if len(hero.inventory) == 0:
             hero.inventory.append('Empty')
-        map[current_room_index]["Items"].append(drop_item_index)
+        atlas[current_room]["Items"].append(item_to_drop)
         print(color.GREEN + 'Success' + color.END + ': you have dropped an item, it feels nice not to carry around so much weight!\n')
     # Invalid data
     else:
         print(color.CYAN + 'Invalid input' + color.END + ': you can\'t drop what you don\'t have, please try again.\n')
-    return
 
-def fight(current_room_index):
+def fight(current_room):
+    '''fight(current_room)'''
     # Get monster and hit points
     # Roll hero attack
     #     1 - 20: < 5 missed, >= 5 hits, >= 10 double damage, >= 15 triple damage
@@ -454,6 +340,7 @@ def fight(current_room_index):
     print('fight')
     
 def instructions():
+    '''instructions()'''
     # Get number of lines of the console
     console_lines = os.get_terminal_size()[1]
     i = 1
@@ -522,25 +409,6 @@ def instructions():
     message.append("  that choice does give the monster a chance to attack before")
     message.append("  you leave!). You can continue fighting until either the hero")
     message.append("  or the monster is dead (when life is zero)")
-    # message.append("")
-    # message.append("")
-    # message.append("")
-    # message.append("")
-    # message.append("")
-    # message.append("")
-    # message.append("")
-    # message.append("")
-    # message.append("")
-    # message.append("")
-    # message.append("")
-    # message.append("")
-    # message.append("")
-    # message.append("")
-    # message.append("")
-    # message.append("")
-    # message.append("")
-    # message.append("")
-    # print('(Verbs: Move, Look, Get, Use, Drop, Fight, or Instructions)')    
     
     print()
     for line in message:
@@ -559,51 +427,114 @@ def instructions():
     print(SECTION_BREAK)
 
 def intro():
-    # Display game intro and instructions
-    instructions()
+    '''intro()'''
+    # Display game intro
+    print(SECTION_BREAK)
+    print('Hello intrepid adventurer!\n')
+    print('You are about to embark on an epic quest, if you are\nfamiliar with text based games you may be able to jump right\nin. If you need some guidance on the structure and commands\nyou can enter \'instructions\' at the main game prompt for\nmore information on how to play. However first I need to ask\nyou two question and then we can begin!\n' )
     
     # Get name for the hero character
-    hero_name = ""
-    while len(hero_name) < 1:
-        hero_name = input('What is your name brave hero? ')
+    hero.name = ""
+    while len(hero.name) < 1:
+        hero.name = input('What is your name brave hero? ')
     
     # Get hero's class
     good_input = False
-    while (not good_input):
-        hero_class = ""
-        while len(hero_class) < 1:
-            hero_class = input('Pick a class to play ([F]ighter, [C]leric, or [R]ouge): ')
-        hero_class = hero_class.lower()[0]
-        if hero_class == 'f':
-            hero_class = 'Fighter'
-        elif  hero_class == 'c':
-            hero_class = 'Cleric'
-        elif  hero_class == 'r':
-            hero_class = 'Rouge'
+    while not good_input:
+        hero.skill_set = ""
+        while len(hero.skill_set) < 1:
+            hero.skill_set = input('Pick a class to play ([F]ighter, [C]leric, or [R]ouge): ')
+        hero.skill_set = hero.skill_set.lower()[0]
+        if hero.skill_set == 'f':
+            hero.skill_set = 'Fighter'
+        elif  hero.skill_set == 'c':
+            hero.skill_set = 'Cleric'
+        elif  hero.skill_set == 'r':
+            hero.skill_set = 'Rouge'
         else:
             continue
         good_input = True
-    return hero_name, hero_class
+    
+    # We have the required info, now time to start the game
+    # Display intro message from the King
+    print(SECTION_BREAK)
+    print('We find our hero in the castle of the king, in the main')
+    print('throne room with all the pomp one would expect from a king')
+    print('and his court. The king rises and addresses you,\n')
+    print(f'"Greetings {hero.name}, brave {hero.skill_set}!!\n')
+    print('Thank you for taking on this foolhardy.... er... I mean... uh')
+    print('valiant! yes, valiant quest! My kingdom has been overrun by evil')
+    print('doers and my treasury plundered. Please retreive my precious')
+    print('gemstones. There are six in all. When you have collected them,')
+    print('please return to me here in the castle.\n')
+    print('Best of luck!"\n\n')
+    input("Press ENTER to continue...")
+    print(SECTION_BREAK)
 
 def hero_wins():
+    '''hero_wins()'''
     print('You\'ve entered the castle with all the gems and the king is\ndelighted to see you! He calls his court into the main\nthrone room and exclaims in his loudest kingly-est voice,\n')
     print('"Oh brave hero, you have returned from your periless\njourney and I see you have returned my precious gems. I am\nso thankful that I dub you knight ' + hero.name + ', protector of the')
     print('realm and most high ' + hero.skill_set +'. You will hence forth be known\nas such to all people in my lands. I also bequeath to you\nthe diamond that you have returned a token of my gratitude."\n')
     print('The crowd erupts in applause as the king rises and walks out\nof the room with all the gems save the shining diamond which he\ntosses to you. With diamond in hand, you head out of the castle')
-    print('doors and into the sunshine to start on your next big adventure!\n')
-    
+    print('doors and into the sunshine to start on your next big adventure!\n') 
 
 def hero_cliff():
+    '''hero_cliff()'''
     print('You have just walked off the edge of an epic cliff, why\nwould you walk off a cliff? Unfortunately this was a fall\nfrom such a great height that you did not survive it. Your')
     print('adventure has ended in failure. Any songs about your life\nwill be more of a cautionary tale about a ' + hero.skill_set + ' named\n' + hero.name + ' that couldn\'t fly, so sad.\n')
 
-def hero_lost(monster_index):
-    print('Bad monster {} made you die'.format(monsters[monster_index]["Name"]))
+def hero_lost(monster):
+    '''hero_lost(monster)'''
+    print(f'Bad monster {monster} made you die')
 
+def load_file(file):
+    '''load_file'''
+    print("Loading ", file, "File.....", end="")
+    with open(file, "r", encoding='ascii') as read_file:
+        dictionary = json.load(read_file)
+    print(color.GREEN + "Done" + color.END)
+    return dictionary
 
 # End of Functions, script starts here
+# Color class for adding color to print output
+# From https://appdividend.com/2021/06/14/how-to-print-bold-python-text
+# (c) Krunal Lathiya, June 14, 2021
+# Defines a color class and adds constant values for each color/effect
+class color: # pylint: disable=too-few-public-methods
+    '''Def'''
+    PURPLE = '\033[95m'
+    CYAN = '\033[96m'
+    DARKCYAN = '\033[36m'
+    BLUE = '\033[94m'
+    GREEN = '\033[92m'
+    YELLOW = '\033[93m'
+    RED = '\033[91m'
+    BOLD = '\033[1m'
+    UNDERLINE = '\033[4m'
+    END = '\033[0m'
+
+class hero: # pylint: disable=too-few-public-methods
+    '''Def'''
+    name = ""
+    skill_set = ""
+    weapon = "Fists"
+    life = 75
+    life_max = 100
+    inventory = ["Empty"]
+    inventory_max = 10
+
+# Define a constant for use in separating the output for better readability
+SECTION_BREAK = '\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n'
+
+# Define filename/location and load dictionary variables from data files
+map_file = "Map.json"
+monster_file = "Monsters.json"
+item_file = "Items.json"
+atlas = dict(load_file(map_file))
+monsters = dict(load_file(monster_file))
+items = dict(load_file(item_file))
+
 main()
 
 print("Thank you for playing, we hope you enjoyed this adventure!\n\n")
-
-

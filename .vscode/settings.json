@@ -7,5 +7,7 @@
         "Krunal",
         "leric",
         "ouge"
-    ]
+    ],
+    "python.linting.banditEnabled": false,
+    "python.linting.mypyEnabled": false
 }

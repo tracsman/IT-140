@@ -1,106 +1,87 @@
 {
-    "0": {
-        "Name": "Opal",
+    "Opal": {
         "Item Type": "Gem",
-        "Description" : ""
+        "Description" : "Swirling iridescent colors mesmerize in this amazing\nspecimen of Opal."
     },    
-    "1": {
-        "Name": "Emerald",
+    "Emerald": {
         "Item Type": "Gem",
-        "Description" : ""
+        "Description" : "The deepest green with a slight hue of blue, this is\ndefinitely a gemstone for the king!"
     },
-    "2": {
-        "Name": "Ruby",
+    "Ruby": {
         "Item Type": "Gem",
-        "Description" : ""
+        "Description" : "Blood red and seaming to shine with a light of it's own, it's\nso pretty maybe the King won't miss if it isn't returned!"
     },
-    "3": {
-        "Name": "Sapphire",
+    "Sapphire": {
         "Item Type": "Gem",
-        "Description" : ""
+        "Description" : "The very definition of blue, this sapphire draws the eye\nwith a radiance rivaled by few other gemstones."
     },
-    "4": {
-        "Name": "Diamond",
+    "Diamond": {
         "Item Type": "Gem",
-        "Description" : ""
+        "Description" : "It's just carbon, but damn that's some sexy carbon. The king\nof all gemstones, if there was one item you'd covet from\nthis quest, wow this is it!"
     },
-    "5": {
-        "Name": "Pearl",
+    "Pearl": {
         "Item Type": "Gem",
-        "Description" : ""
+        "Description" : "Ok, technically not a gemstone but who are you to correct\nthe king. Still for oyster snot, this is a pretty amazing\npiece of work. As iridescent and lustrous as any of the\nother gems."
     },
-    "6": {
-        "Name": "Dagger",
+    "Dagger": {
         "Item Type": "Weapon",
-        "Description" : "You see a dagger",
+        "Description" : "Basically a smallish knife with edges on both sides of the\nblade. Easy to wield with one hand.",
         "Multiplier": "20"
     },
-    "7": {
-        "Name": "Club",
+    "Club": {
         "Item Type": "Weapon",
-        "Description" : "",
+        "Description" : "Solid wood, smaller at the holding end, bigger at the\nbusiness end, you know, a club!",
         "Multiplier": "25"
     },
-    "8": {
-        "Name": "Bow",
+    "Bow": {
         "Item Type": "Weapon",
-        "Description" : "",
+        "Description" : "Curved wood about an arms width in length with a taut sinew\ncord. This weapon can do some serious ranged damage.",
         "Multiplier": "30"
     },
-    "9": {
-        "Name": "Short Sword",
+    "Short Sword": {
         "Item Type": "Weapon",
-        "Description" : "",
+        "Description" : "A one-handed weapon best for quick stabbing damage. Much\nbetter than a dagger but still a close in weapon.",
         "Multiplier": "30"
     },
-    "10": {
-        "Name": "Lance",
+    "Lance": {
         "Item Type": "Weapon",
-        "Description" : "",
+        "Description" : "A long wooden pole with a pointy bit at one end. Place the\npointy bit in your enemy and you win! Although not the most\npowerful weapon, it's pretty close.",
         "Multiplier": "35"
     },
-    "11": {
-        "Name": "Crossbow",
+    "Crossbow": {
         "Item Type": "Weapon",
-        "Description" : "",
+        "Description" : "A ranged weapon with enormous stopping power. Compact and\nshooting a metal tipped wooden bolt, this is the most\npowerful weapon you can yield.",
         "Multiplier": "40"
     },
-    "12": {
-        "Name": "Leg Bone",
+    "Leg Bone": {
         "Item Type": "Weapon",
-        "Description" : "",
+        "Description" : "It's exactly what it sounds like. Mostly bone, a few bits of\nsinew. But hey, at least it's dry. In a pinch you could use\nit as a weapon, better than your fists, but not by much.",
         "Multiplier": "10"
     },
-    "13": {
-        "Name": "Potion",
+    "Potion": {
         "Item Type": "Health",
-        "Description" : "",
+        "Description" : "Reddish liquid that looks like a fine pinot noir, but smells\nlike south end of a north bound donkey. But it looks like\nit has tremendous restorative powers.",
         "Restore Points": "30"
     },
-    "14": {
-        "Name": "Apple",
+    "Apple": {
         "Item Type": "Health",
-        "Description" : "",
+        "Description" : "Red and delicious, natures wonder. It may even make you a\nlittle bit healthier.",
         "Restore Points": "5"
     },
-    "15": {
-        "Name": "Old Shoe",
+    "Old Shoe": {
         "Item Type": "Item",
-        "Description" : ""
+        "Description" : "No not a pair of shoes, just one. And it's seen much better\ndays. It looks like someone walked right out of it and just\nkept on walking. That is one disintegrating shoe."
     },
-    "16": {
-        "Name": "Wooden Crate",
+    "Wooden Crate": {
         "Item Type": "Item",
-        "Description" : ""
+        "Description" : "If you have things you need shipped on the next ship to\nwherever, this could be the ticket. Sturdy wood, metal\nwrapped corners. As far as crates go, this is a masterpiece."
     },
-    "17": {
-        "Name": "Silver Shilling",
+    "Silver Shilling": {
         "Item Type": "Item",
-        "Description" : ""
+        "Description" : "Shiny and silver, it's more than a pence, and a long way\nfrom a pound, but it's still nice to find free money!"
     },
-    "18": {
-        "Name": "5 Vellum Sheets",
+    "5 Vellum Sheets": {
         "Item Type": "Item",
-        "Description" : ""
+        "Description" : "The finest calfskin parchment, so precious and rare. This\nwould be the perfect medium to capture your epic adventure.\nIf you live through it, perhaps you can find a scribe to\nwrite it all down!"
     }
 }

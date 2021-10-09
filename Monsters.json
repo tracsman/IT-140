@@ -1,25 +1,21 @@
 {
-    "0": {
-        "Name": "Zombie",
-        "Description" : "",
+    "Zombie": {
+        "Description" : "Stinky, undead, shambling, and clothed in mouldering scraps,\nwhat's not to love? Actually a lot, this zombie really wants\nto eat your brains!",
         "Hit Points" : "30",
         "Multiplier": "20"
     },
-    "1": {
-        "Name": "Banshee",
-        "Description" : "",
+    "Banshee": {
+        "Description" : "Glowing translucent from a light that seems to come from\nwithin, this female wraith is seeking revenge and isn't\nparticular about from whom she exacts it.\nIt's fight or flight time!",
         "Hit Points" : "50",
         "Multiplier": "60"
     },
-    "2": {
-        "Name": "Giant Python",
-        "Description" : "",
+    "Giant Python": {
+        "Description" : "It's giant, it's snaky, but you know, once you get to know\nit, it's not that difficult to deal with. But best to kill\nit just to be on the safe side.",
         "Hit Points" : "15",
         "Multiplier": "0"
     },
-    "3": {
-        "Name": "Ogre",
-        "Description" : "",
+    "Ogre": {
+        "Description" : "This thing is angry, no I mean like berserker level angry,\nand did I mention huge? This hulking giant may best be just\nleft alone, running away may be the wiser course of action\nhere.",
         "Hit Points" : "60",
         "Multiplier": "100"
     }
