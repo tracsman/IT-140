@@ -9,7 +9,7 @@
     },
     "Ruby": {
         "Item Type": "Gem",
-        "Description" : "Blood red and seaming to shine with a light of it's own, it's\nso pretty maybe the King won't miss if it isn't returned!"
+        "Description" : "Blood red and seaming to shine with a light of its own,\nit's so pretty maybe the King won't miss if it isn't returned!"
     },
     "Sapphire": {
         "Item Type": "Gem",
@@ -17,15 +17,15 @@
     },
     "Diamond": {
         "Item Type": "Gem",
-        "Description" : "It's just carbon, but damn that's some sexy carbon. The king\nof all gemstones, if there was one item you'd covet from\nthis quest, wow this is it!"
+        "Description" : "It's just carbon, but damn that's some sexy carbon.\nThe king of all gemstones, if there was one item you'd covet\nfrom this quest, wow this is it!"
     },
     "Pearl": {
         "Item Type": "Gem",
-        "Description" : "Ok, technically not a gemstone but who are you to correct\nthe king. Still for oyster snot, this is a pretty amazing\npiece of work. As iridescent and lustrous as any of the\nother gems."
+        "Description" : "Ok, technically not a gemstone but who are you to\ncorrect the king. Still for oyster snot, this is a pretty\namazing piece of work. As iridescent and lustrous as any\nof the other gems."
     },
     "Dagger": {
         "Item Type": "Weapon",
-        "Description" : "Basically a smallish knife with edges on both sides of the\nblade. Easy to wield with one hand.",
+        "Description" : "Basically a smallish knife with edges on both sides\nof the blade. Easy to wield with one hand.",
         "Multiplier": "20"
     },
     "Club": {
@@ -35,7 +35,7 @@
     },
     "Bow": {
         "Item Type": "Weapon",
-        "Description" : "Curved wood about an arms width in length with a taut sinew\ncord. This weapon can do some serious ranged damage.",
+        "Description" : "Curved wood about an arms width in length with a taut\nsinew cord. This weapon can do some serious ranged damage.",
         "Multiplier": "30"
     },
     "Short Sword": {
@@ -45,32 +45,32 @@
     },
     "Lance": {
         "Item Type": "Weapon",
-        "Description" : "A long wooden pole with a pointy bit at one end. Place the\npointy bit in your enemy and you win! Although not the most\npowerful weapon, it's pretty close.",
+        "Description" : "A long wooden pole with a pointy bit at one end. Place\nthe pointy bit in your enemy and you win! Although not the most\npowerful weapon, it's pretty close.",
         "Multiplier": "35"
     },
     "Crossbow": {
         "Item Type": "Weapon",
-        "Description" : "A ranged weapon with enormous stopping power. Compact and\nshooting a metal tipped wooden bolt, this is the most\npowerful weapon you can yield.",
+        "Description" : "A ranged weapon with enormous stopping power. Compact\nand shooting a metal tipped wooden bolt, this is the most\npowerful weapon you can yield.",
         "Multiplier": "40"
     },
     "Leg Bone": {
         "Item Type": "Weapon",
-        "Description" : "It's exactly what it sounds like. Mostly bone, a few bits of\nsinew. But hey, at least it's dry. In a pinch you could use\nit as a weapon, better than your fists, but not by much.",
+        "Description" : "It's exactly what it sounds like. Mostly bone, a few\nbits of sinew. But hey, at least it's dry. In a pinch you could\nuse it as a weapon, better than your fists, but not by much.",
         "Multiplier": "10"
     },
     "Potion": {
         "Item Type": "Health",
-        "Description" : "Reddish liquid that looks like a fine pinot noir, but smells\nlike south end of a north bound donkey. But it looks like\nit has tremendous restorative powers.",
+        "Description" : "Reddish liquid that looks like a fine pinot noir, but\nsmells like south end of a north bound donkey. But it looks like\nit has tremendous restorative powers.",
         "Restore Points": "30"
     },
     "Apple": {
         "Item Type": "Health",
-        "Description" : "Red and delicious, natures wonder. It may even make you a\nlittle bit healthier.",
+        "Description" : "Red and delicious, natures wonder. It may even make\nyou a little bit healthier.",
         "Restore Points": "5"
     },
     "Old Shoe": {
         "Item Type": "Item",
-        "Description" : "No not a pair of shoes, just one. And it's seen much better\ndays. It looks like someone walked right out of it and just\nkept on walking. That is one disintegrating shoe."
+        "Description" : "No not a pair of shoes, just one. And it's seen much\nbetter days. It looks like someone walked right out of it and\njust kept on walking. That is one disintegrating shoe."
     },
     "Wooden Crate": {
         "Item Type": "Item",
@@ -78,10 +78,10 @@
     },
     "Silver Shilling": {
         "Item Type": "Item",
-        "Description" : "Shiny and silver, it's more than a pence, and a long way\nfrom a pound, but it's still nice to find free money!"
+        "Description" : "Shiny and silver, it's more than a pence, and a long\nway from a pound, but it's still nice to find free money!"
     },
     "5 Vellum Sheets": {
         "Item Type": "Item",
-        "Description" : "The finest calfskin parchment, so precious and rare. This\nwould be the perfect medium to capture your epic adventure.\nIf you live through it, perhaps you can find a scribe to\nwrite it all down!"
+        "Description" : "The finest calfskin parchment, so precious and rare.\nThis would be the perfect medium to capture your epic adventure.\nIf you live through it perhaps you can find a scribe to\nwrite it all down!"
     }
 }

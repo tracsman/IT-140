@@ -1,6 +1,6 @@
 {
     "Castle": {
-        "Description" : "You are in the King's grand castle with lots of granite\nstones, marble floors, and tapestries. So many tapestries!\nThere appears to be only one way out, it's to the East\noutside where you see a path with a large statue.",
+        "Description" : "You are in the King's grand castle with lots of granite\nstones, marble floors, and tapestries. So many tapestries!\nThere appears to be only one way out, it's to the East\noutside where you see a path leading to a large statue.",
         "East" : "Statue",
         "Items": []
     },
@@ -12,13 +12,13 @@
         "Items": ["Dagger"]
     },
     "Path": {
-        "Description" : "You are on a path in a darkly wooden area with the trees\nclosing in. You can see a path with a statue to the west\nand perhaps a house beyond the trees to the East.",
+        "Description" : "You are on a path in a dark wooded area with the trees\nclosing in. You can see a path with a statue to the west\nand perhaps a house beyond the trees to the East.",
         "East": "Manor Promenade",
         "West": "Statue",
         "Items": ["Club"]
     },
     "Well": {
-        "Description" : "You are in an open field with on old water well. The well\nhas a rotted rope and a broken bucket to the side of it. The\nwell doesn't appear to have been used in ages. To the South\nof the field is a large manor with many room, and to the\nNorth the field ends at mountain face with what looks like\na forboding cave.",
+        "Description" : "You are in an open field with on old water well. The well\nhas a rotted rope and a broken bucket to the side of it. The\nwell doesn't appear to have been used in ages. To the South\nof the field is a large manor with many rooms, and to the\nNorth the field ends at a mountain face with what looks like\na foreboding cave.",
         "North": "Dungeon Entrance",
         "South": "Manor Promenade",
         "Items": ["Opal"]
@@ -31,13 +31,13 @@
         "Items": ["Old Shoe"]
     },
     "Fountain": {
-        "Description" : "Before you is a long garden leading to the country manor\nwith impeccably maintained topiary bushes in many fanciful\nshapes and gravel pathways. Your eyes are drawn to the\nimmense fountain with water spouting horses, and cherubs\npouring water from vases. Quite the bucolic scene. To the\nEast is the main entrance of the house, to the West is a\nlong promenade across the house property.",
+        "Description" : "Before you is a long garden leading to a country manor\nwith impeccably maintained topiary bushes in many fanciful\nshapes and gravel pathways. Your eyes are drawn to the\nimmense fountain with water spouting horses, and cherubs\npouring water from vases. Quite the bucolic scene. To the\nEast is the main entrance of the house, to the West is a\nlong promenade across the house property.",
         "East": "Library",
         "West": "Manor Promenade",
         "Items": ["Silver Shilling"]
     },
     "Dining Room": {
-        "Description" : "You've entered into a formal dining room (you are really\nunderdressed!). The table is set with the finest china on\ndisplay. On a sideboard in the room you see bottles of\nliquor and elixirs, I'm sure they are purely for medicinal\npurposes. To the East and South are closed doors leading\nto other rooms.",
+        "Description" : "You've entered into a formal dining room (you are really\nunderdressed!). The table is set with the finest China on\ndisplay. On a sideboard in the room you see bottles of\nliquor and elixirs, I'm sure they are purely for medicinal\npurposes. To the East and South are closed doors leading\nto other rooms.",
         "East": "Bedroom",
         "South": "Kitchen",
         "Items": ["Potion"]
@@ -51,7 +51,7 @@
         "Monster": "Zombie"
     },
     "Library": {
-        "Description" : "You are standing in the Library of the manor, although\nornate and quite grand you feel a sense of dread and\ndiscomfort. The house is quiet, too quiet. The hairs\nstanding on the back of your neck tells you that something\nevil is lurking in the shadows of this house. To the North\nand East are a sets of closed doors, to the West is the\nmain door outside to the fountain court.",
+        "Description" : "You are standing in the Library of the manor, although\nornate and quite grand you feel a sense of dread and\ndiscomfort. The house is quiet, too quiet. The hairs\nstanding on the back of your neck tell you that something\nevil is lurking in the shadows of this house. To the North\nand East are a sets of closed doors, to the West is the\nmain door outside to the fountain court.",
         "North": "Kitchen",
         "East": "Great Hall",
         "West": "Fountain",
@@ -60,7 +60,7 @@
     "Bedroom": {
         "Description" : "This room is a bedroom, but I don't think a nap is in order,\nyou hear ghastly wailing coming from somewhere, and wait...\nis something rustling in the bed sheets? I sure hope not.\nThe only ways out of this bedroom are closed doors to the\nWest and South.",
         "South": "Servants Room",
-        "West": "Fountain",
+        "West": "Dining Room",
         "Items": ["Emerald"],
         "Monster": "Banshee"
     },
@@ -72,7 +72,7 @@
         "Items": ["Lance"]
     },
     "Great Hall": {
-        "Description" : "You have entered the Great Hall. Family crests, classic\nweapons of yore, and a vast table down the center of this\nimpressive room. With so many dour portraits of old men on\nthe walls, whoever decorated this room wasn't shy about\nbragging about the family history. The West is the doorway\nto the Library, to the North is a closed door.",
+        "Description" : "You have entered the Great Hall. Family crests, classic\nweapons of yore, and a vast table down the center of this\nimpressive room. With so many dour portraits of old men on\nthe walls, whoever decorated this room wasn't shy about\nbragging about the family history. West is the doorway\nto the Library, to the North is a closed door.",
         "North": "Servants Room",
         "West": "Library",
         "Items": ["Ruby"]
@@ -84,7 +84,7 @@
         "Items": ["Potion"]
     },
     "Dungeon Entrance": {
-        "Description" : "At the edge of a clearing, a cliff stands about the height\nof a tall tree. Next to a large boulder appears to be an\nentrance to a cave or.. no wait, not a cave but a dungeon!\nContinue North to enter the dungeon, South to an open\nfield with a Well.",
+        "Description" : "At the edge of a clearing, a cliff wall stands about the height\nof a tall tree. Next to a large boulder appears to be an\nentrance to a cave or.. no wait, not a cave but a dungeon!\nContinue North to enter the dungeon, South to an open\nfield with a Well.",
         "North": "Passage Way",
         "South": "Well",
         "Items": ["Leg Bone"]
@@ -98,7 +98,7 @@
     "Treasure Room": {
         "Description" : "You enter a room that, unlike the other rooms in this\nterrible place, is relatively clean and well appointed. No\nmore rough walls and floor, although dusty you see fine\nwooden tables and polished stone walls. In the center of the\nroom stands a small plinth. To the East is a door, but\nsomething isn't right about it, you really don't want to\nopen that door. You can also return to the torture room to\nthe West.",
         "East": "Pit of Despair",
-        "South": "Torture Room",
+        "West": "Torture Room",
         "Items": ["Sapphire"]
     },
     "Pit of Despair": {
@@ -127,14 +127,14 @@
         "Items": ["Bow"]
     },
     "Town Gate": {
-        "Description" : "Before you stands a large archway filled with two metal\nbanded wooden gates. An entrance to a town! Will you go\nNorth and enter the town or proceed South to the path\nwith a Statue?",
+        "Description" : "Before you stands a large archway filled with two metal-\nbanded wooden gates. An entrance to a town! Will you go\nNorth and enter the town or proceed South to the path\nwith a Statue?",
         "North": "Town Square",
         "South": "Statue",
         "West": "Cliff",
         "Items": ["5 Vellum Sheets"]
     },
     "Fish Market": {
-        "Description" : "What is that smell?! Oh, it is a fish market so I guess it\ngoes with the territory. But this seems worse than normal,\nI don't think this is today's catch, or even this week's\ncatch! But there could be something use full here, maybe...\nor not. Head West to get back to the town square.",
+        "Description" : "What is that smell?! Oh, it is a fish market so I guess it\ngoes with the territory. But this seems worse than normal,\nI don't think this is today's catch, or even this week's\ncatch! But there could be something useful here, maybe...\nor not. Head West to get back to the town square.",
         "West": "Town Square",
         "Items": ["Pearl"]
     },
