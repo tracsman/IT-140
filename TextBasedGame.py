@@ -1,6 +1,6 @@
 '''
 Author: Jon Ormond
-Created: October 11th, 2021
+Created: October 14th, 2021
 Description: Adventure Quest, a text based game.
              Created for Project Two of the IT-140 class at SNHU.
 Version: 1.0
@@ -51,96 +51,9 @@ def main():
             print('You were warned this was a dangerous adventure, and while\nyou were not successful in your quest you were brave and\nvaliant. Bards will sing epic songs of your legendary tail.\n')
             return # Exit game loop
         
-        # The main purpose of this loop is to display the standard
-        # output screen of information, then accept and route the
-        # user command. The display output is aligned thusly:
-        # 
-        # Current location description
-        # (optional) Any items in the room
-        # (optional) Any monsters in the room
-        #
-        # The hero's inventory
-        # The hero's weapon
-        # The hero's health
-        #
-        # The possible directions and what is in that direction
-        # 
-        # A reminder of the verbs
-        # An input prompt for a command
-        #
-
-        # Note: Python has a map function and although I could have called
-        # the map variable "map" I deciced to call it "atlas" to avoid
-        # reusing the word map.
-        # Show the description of the current room from the atlas dictionary
-        print(atlas[current_room]['Description'])
-
-        # Show any items in the room
-        if len(atlas[current_room]['Items']) > 0:
-            display_items = 'You see a '
-            # Player can drop additional items in a room, so the items
-            # container must be a list.
-            # iterate through the list and display items in the room
-            for item in atlas[current_room]['Items']:
-                display_items += f'{color.GREEN}{item}{color.END}, '
-            # items will have an unneeded ", " at the end, strip that off
-            display_items = display_items[:-2] + ' there for the taking.'
-            print(display_items)
-
-        # Show any monsters
-        if 'Monster' in atlas[current_room]:
-            print(f'Oh no! There is a big scary {color.RED}{atlas[current_room]["Monster"]}{color.END} in here with you!!')
-
-        # Show the hero's current inventory list
-        if "Empty" not in hero.inventory:
-            inventory_items = '\nYour Inventory: '
-            # iterate through the list and display items in inventory
-            for item in hero.inventory:
-                inventory_items += f'{color.GREEN}{item}{color.END}, '
-            # items will have an unneeded ", " at the end, strip that off
-            inventory_items = inventory_items[:-2]
-            print(inventory_items)
-        else:
-            print('\nYour Inventory: Empty')
-
-        # Show the hero's current equipped weapon
-        if hero.weapon != "Fists":
-            print(f'Your Weapon: {color.GREEN}hero.weapon{color.END}')
-        else:
-            print('Your Weapon: Fists')
-            
-        # Show the hero's remaining life
-        # Get a color to provide visual impact to the hero's health level
-        if hero.life > 80:
-            life_color = color.GREEN
-        elif hero.life > 30:
-            life_color = color.YELLOW
-        else:
-            life_color = color.RED
-        # Display the hero's health with the right color and show the max life possible
-        print(f'Your health: {life_color}{str(hero.life)}{color.END} out of {str(hero.life_max)}\n')
-        
-        # Show the possible directions available from this location
-        # Start with a begining of the line in a variable and add each valid direction to the string
-        directions = "Possible Directions: you see "
-        # Check each the map dictionary for the current room and see if the cardinal direction exists
-        if 'North' in atlas[current_room]:
-            # If this direction exists, append this direction, nicely formated with an ending comma to the directions string
-            directions +=f'a {atlas[current_room]["North"]} to the {color.CYAN}North{color.END}, '
-        if 'East' in atlas[current_room]:
-            directions +=f'a {atlas[current_room]["East"]} to the {color.CYAN}East{color.END}, '
-        if 'South' in atlas[current_room]:
-            directions +=f'a {atlas[current_room]["South"]} to the {color.CYAN}South{color.END}, '
-        if 'West' in atlas[current_room]:
-            directions +=f'a {atlas[current_room]["West"]} to the {color.CYAN}West{color.END}, '
-        # The last direction appended will have a trailing comma and a space, so we need to trim those two characters off
-        # and add a period
-        directions = directions[:-2] + "."
-        # Print the available directions for this location
-        print(directions, '\n\n')
-        # Print a reminder of the available verbs for the user to use
-        print('(Verbs: Move, Look, Get, Use, Drop, Fight, or Instructions)')
-        
+        # Display main location and character information screen
+        main_display(current_room)
+       
         # Get the users command
         user_input = input('Please enter a command (verb noun): ')
         
@@ -212,7 +125,99 @@ def main():
         # if we've gotten this far, the verb letter wasn't recognized
         else:
             print(f'{color.CYAN}Invalid input{color.END}: the verb used was not recognized, please try again.\n')
-   
+
+def main_display(current_room):
+    '''main_display(current_room): Used to show location information and current character attributes.'''
+    # The main purpose of this loop is to display the standard
+    # output screen of information, then accept and route the
+    # user command. The display output is aligned thusly:
+    # 
+    # Current location description
+    # (optional) Any items in the room
+    # (optional) Any monsters in the room
+    #
+    # The hero's inventory
+    # The hero's weapon
+    # The hero's health
+    #
+    # The possible directions and what is in that direction
+    # 
+    # A reminder of the verbs
+    # An input prompt for a command
+    #
+
+    # Note: Python has a map function and although I could have called
+    # the map variable "map" I deciced to call it "atlas" to avoid
+    # reusing the word map.
+    # Show the description of the current room from the atlas dictionary
+    print(atlas[current_room]['Description'])
+
+    # Show any items in the room
+    if len(atlas[current_room]['Items']) > 0:
+        display_items = 'You see a '
+        # Player can drop additional items in a room, so the items
+        # container must be a list.
+        # iterate through the list and display items in the room
+        for item in atlas[current_room]['Items']:
+            display_items += f'{color.GREEN}{item}{color.END}, '
+        # items will have an unneeded ", " at the end, strip that off
+        display_items = display_items[:-2] + ' there for the taking.'
+        print(display_items)
+
+    # Show any monsters
+    if 'Monster' in atlas[current_room]:
+        print(f'Oh no! There is a big scary {color.RED}{atlas[current_room]["Monster"]}{color.END} in here with you!!')
+
+    # Show the hero's current inventory list
+    if "Empty" not in hero.inventory:
+        inventory_items = '\nYour Inventory: '
+        # iterate through the list and display items in inventory
+        for item in hero.inventory:
+            inventory_items += f'{color.GREEN}{item}{color.END}, '
+        # items will have an unneeded ", " at the end, strip that off
+        inventory_items = inventory_items[:-2]
+        print(inventory_items)
+    else:
+        print('\nYour Inventory: Empty')
+
+    # Show the hero's current equipped weapon
+    if hero.weapon != "Fists":
+        print(f'Your Weapon: {color.GREEN}hero.weapon{color.END}')
+    else:
+        print('Your Weapon: Fists')
+        
+    # Show the hero's remaining life
+    # Get a color to provide visual impact to the hero's health level
+    if hero.life >= 80:
+        life_color = color.GREEN
+    elif hero.life > 30:
+        life_color = color.YELLOW
+    else:
+        life_color = color.RED
+    # Display the hero's health with the right color and show the max life possible
+    print(f'Your health: {life_color}{str(hero.life)}{color.END} out of {str(hero.life_max)}\n')
+    
+    # Show the possible directions available from this location
+    # Start with a begining of the line in a variable and add each valid direction to the string
+    directions = "Possible Directions: you see "
+    # Check each the map dictionary for the current room and see if the cardinal direction exists
+    if 'North' in atlas[current_room]:
+        # If this direction exists, append this direction, nicely formated with an ending comma to the directions string
+        directions +=f'a {atlas[current_room]["North"]} to the {color.CYAN}North{color.END}, '
+    if 'East' in atlas[current_room]:
+        directions +=f'a {atlas[current_room]["East"]} to the {color.CYAN}East{color.END}, '
+    if 'South' in atlas[current_room]:
+        directions +=f'a {atlas[current_room]["South"]} to the {color.CYAN}South{color.END}, '
+    if 'West' in atlas[current_room]:
+        directions +=f'a {atlas[current_room]["West"]} to the {color.CYAN}West{color.END}, '
+    # The last direction appended will have a trailing comma and a space, so we need to trim those two characters off
+    # and add a period
+    directions = directions[:-2] + "."
+    # Print the available directions for this location
+    print(directions, '\n\n')
+    # Print a reminder of the available verbs for the user to use
+    print('(Verbs: Move, Look, Get, Use, Drop, Fight, or Instructions)')
+
 def move(current_room, direction):
     '''move(current_room, direction): processes the move request from the main game loop and moves player to a new location'''
     # Check for single character direction, if so, expand to full cardinal direction name
@@ -244,6 +249,10 @@ def look_item(current_room, item_to_see):
     item_to_see = item_to_see.title()
     # Does this item not exist anywhere in the world?
     if item_to_see not in items:
+        # Maybe they are looking at a monster?
+        if "Monster" in atlas[current_room] and item_to_see == atlas[current_room]["Monster"]:
+            print(f'{color.GREEN}Success{color.END}: {monsters[item_to_see]["Description"]}\n')
+            return
         # Invalid item requested, display error
         print(f'{color.CYAN}Invalid input{color.END}: item does not exist, please try again.\n')
         return
@@ -632,7 +641,7 @@ SECTION_BREAK = '\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n
 
 # Define the atlas (map) dictionary
 # Key is the location name
-# Values:
+# Values (as nested dictionary key-value pairs):
 #   Description - String
 #   North - Optional String of a location name (Key)
 #   East - Optional String of a location name (Key)
@@ -666,7 +675,7 @@ atlas = {'Castle': {'Description': "You are in the King's grand castle with lots
          }
 # Define the monsters dictionary
 # Key is the monster name
-# Values:
+# Values (as nested dictionary key-value pairs):
 #   Description - String
 #   Life - Integer
 #   Multiplier - Integer
@@ -677,7 +686,7 @@ monsters = {'Zombie': {'Description': "Stinky, undead, shambling, and clothed in
             }
 # Define the items dictionary
 # Key is the item name
-# Values:
+# Values (as nested dictionary key-value pairs):
 #   Item Type - String, valid values: "Gem", "Weapon", "Health", and "Item"
 #   Description - String
 #   Multiplier - Optional Integer (for Item Type weapon only)
